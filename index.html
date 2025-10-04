@@ -31,6 +31,16 @@
     
     #progress-bar { position: fixed; top: 0; left: 0; width: 0%; height: 3px; background: linear-gradient(90deg, var(--accent), var(--accent2)); z-index: 9999; transition: width 0.3s ease; }
     
+    .glass { background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.2); }
+    .glow { box-shadow: 0 0 20px rgba(110, 231, 255, 0.3); }
+    .pulse { animation: pulse 2s infinite; }
+    
+    @keyframes pulse {
+      0% { box-shadow: 0 0 0 0 rgba(110, 231, 255, 0.4); }
+      70% { box-shadow: 0 0 0 10px rgba(110, 231, 255, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(110, 231, 255, 0); }
+    }
+    
     .topbar { position: relative; z-index: 100; background: linear-gradient(90deg, rgba(110,231,255,.15), rgba(155,123,255,.15)); backdrop-filter: blur(6px); border-bottom: 1px solid rgba(255,255,255,.06); }
     .topbar .container { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; flex-wrap: wrap; gap: 10px; }
     .chip { padding: 6px 10px; border-radius: 999px; background: rgba(255,255,255,.08); color: var(--text); border: 1px solid rgba(255,255,255,.12); cursor: pointer; transition: transform var(--speed) var(--ease), background var(--speed) var(--ease); font-size: 0.9rem; }
@@ -43,8 +53,8 @@
     .nav-links { display: flex; gap: 16px; }
     .nav-links a { padding: 8px 12px; border-radius: 10px; transition: background var(--speed) var(--ease), transform var(--speed) var(--ease); font-size: 0.95rem; }
     .nav-links a:hover { background: rgba(255,255,255,.06); transform: translateY(-2px); }
-    .cart-btn { display: flex; align-items: center; gap: 8px; background: linear-gradient(90deg, rgba(110,231,255,.2), rgba(155,123,255,.2)); border: 1px solid rgba(255,255,255,.12); color: var(--text); padding: 8px 12px; border-radius: 12px; cursor: pointer; transition: all var(--speed) var(--ease); position: relative; }
-    .cart-btn:hover { transform: translateY(-2px); }
+    .cart-btn, .user-btn { display: flex; align-items: center; gap: 8px; background: linear-gradient(90deg, rgba(110,231,255,.2), rgba(155,123,255,.2)); border: 1px solid rgba(255,255,255,.12); color: var(--text); padding: 8px 12px; border-radius: 12px; cursor: pointer; transition: all var(--speed) var(--ease); position: relative; }
+    .cart-btn:hover, .user-btn:hover { transform: translateY(-2px); }
     .cart-count { display: inline-block; background: var(--accent2); color: #fff; border-radius: 999px; padding: 2px 8px; font-size: .85rem; min-width: 24px; text-align: center; }
     
     .hero { position: relative; min-height: 64vh; display: flex; align-items: center; overflow: hidden; }
@@ -78,6 +88,9 @@
     .card .buy { display: flex; justify-content: space-between; align-items: center; padding: 18px; border-top: 1px solid rgba(255,255,255,.06); }
     .price { font-weight: 700; font-size: 1.2rem; }
     
+    .bundles .features { padding: 0 18px 18px 18px; color: var(--muted); }
+    .bundles .features li { margin: 8px 0; display: flex; align-items: center; gap: 8px; }
+    
     .footer { border-top: 1px solid rgba(255,255,255,.08); padding: 40px 0 20px; background: rgba(10,11,15,.7); backdrop-filter: blur(10px); }
     .foot-wrap { display: grid; grid-template-columns: repeat(4, 1fr); gap: 30px; }
     .footer-col h4 { margin-bottom: 16px; font-size: 1.1rem; }
@@ -90,8 +103,8 @@
     .newsletter-form button { padding: 10px 15px; }
     .made-by { text-align: center; padding-top: 30px; margin-top: 30px; border-top: 1px solid rgba(255,255,255,.08); color: var(--muted); grid-column: 1 / -1; }
     
-    .cart-drawer { position: fixed; inset: 0 0 0 auto; width: 400px; max-width: 100%; background: rgba(0,0,0,.4); backdrop-filter: blur(6px); display: none; z-index: 2000; }
-    .cart-drawer.active { display: block; }
+    .cart-drawer, .user-drawer { position: fixed; inset: 0 0 0 auto; width: 400px; max-width: 100%; background: rgba(0,0,0,.4); backdrop-filter: blur(6px); display: none; z-index: 2000; }
+    .cart-drawer.active, .user-drawer.active { display: block; }
     .drawer-content { position: absolute; right: 0; top: 0; bottom: 0; width: 400px; background: var(--card); border-left: 1px solid rgba(255,255,255,.1); animation: slideIn var(--speed) var(--ease); display: flex; flex-direction: column; }
     @keyframes slideIn { from { transform: translateX(100%); } to { transform: translateX(0); } }
     .drawer-head { display: flex; justify-content: space-between; align-items: center; padding: 18px; border-bottom: 1px solid rgba(255,255,255,.06); }
@@ -108,6 +121,8 @@
     .total-row { display: flex; justify-content: space-between; font-size: 1.1rem; margin: 10px 0; }
     .discount-row { display: flex; justify-content: space-between; color: var(--ok); display: none; }
     .discount-row.active { display: flex; }
+    .pay-methods { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+    .pay-methods .chip { border: 1px solid rgba(255,255,255,.2); }
     
     .modal { position: fixed; inset: 0; background: rgba(0,0,0,.5); display: none; align-items: center; justify-content: center; z-index: 2100; padding: 20px; }
     .modal.active { display: flex; animation: fadeIn var(--speed) var(--ease); }
@@ -126,6 +141,17 @@
     .faq details[open] { background: rgba(255,255,255,.1); }
     .faq summary { cursor: pointer; font-weight: 600; padding: 5px 0; }
     .faq p { margin-top: 10px; color: var(--muted); }
+    
+    .thank-you { text-align: center; padding: 60px 20px; max-width: 600px; margin: 0 auto; }
+    .thank-you h1 { font-size: 2.5rem; margin-bottom: 20px; color: var(--accent); }
+    .thank-you p { margin-bottom: 30px; color: var(--muted); font-size: 1.1rem; }
+    
+    @keyframes addToCart { 
+      0% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+      100% { transform: scale(1); }
+    }
+    .add-to-cart-animation { animation: addToCart 0.5s var(--ease); }
     
     .theme-toggle { background: transparent; border: none; color: var(--text); cursor: pointer; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: background var(--speed) var(--ease); }
     .theme-toggle:hover { background: rgba(255,255,255,.1); }
@@ -170,13 +196,29 @@
       z-index: 1;
     }
     
+    .portfolio-categories { display: flex; gap: 10px; justify-content: center; margin-bottom: 30px; flex-wrap: wrap; }
+    .portfolio-category { padding: 8px 16px; background: rgba(255,255,255,.05); border-radius: 20px; cursor: pointer; transition: all var(--speed) var(--ease); }
+    .portfolio-category.active { background: var(--accent); color: #000; }
+    
+    .free-product { border: 2px dashed var(--accent); }
+    .download-btn { background: var(--ok); color: #000; }
+    
+    .order-item { padding: 15px; border-bottom: 1px solid rgba(255,255,255,.1); }
+    .order-header { display: flex; justify-content: space-between; margin-bottom: 10px; }
+    .order-date { color: var(--muted); font-size: 0.9rem; }
+    
+    .password-strength { height: 4px; border-radius: 2px; margin-top: 5px; transition: all var(--speed) var(--ease); }
+    .password-weak { background: var(--danger); width: 25%; }
+    .password-medium { background: orange; width: 50%; }
+    .password-strong { background: var(--ok); width: 100%; }
+    
     @media (max-width: 768px) {
       .footer .foot-wrap { grid-template-columns: 1fr 1fr; gap: 25px; }
       .hero h1 { font-size: 2rem; }
       .section { padding: 50px 0; }
       .section-head h2 { font-size: 1.7rem; }
       .nav-links { display: none; }
-      .cart-drawer .drawer-content { width: 100%; }
+      .cart-drawer .drawer-content, .user-drawer .drawer-content { width: 100%; }
     }
     
     @media (max-width: 480px) {
@@ -192,12 +234,6 @@
       50% { transform: translate(0, -10px); }
       100% { transform: translate(0, 0px); }
     }
-    
-    .input-field { width: 100%; padding: 12px; border-radius: 8px; border: 1px solid rgba(255,255,255,.2); background: rgba(255,255,255,.06); color: var(--text); margin-bottom: 15px; }
-    .input-field:focus { outline: none; border-color: var(--accent); }
-    .security-badge { background: rgba(111, 255, 171, 0.1); border: 1px solid var(--ok); padding: 10px; border-radius: 8px; margin: 10px 0; font-size: 0.9rem; }
-    
-    .simulation-mode { background: rgba(255, 193, 7, 0.2); border: 1px solid #ffc107; }
   </style>
 </head>
 <body>
@@ -205,7 +241,7 @@
 
   <div class="topbar">
     <div class="container">
-      <span id="topbarText">أسعار رمزية تبدأ من 1$ • تحديثات مستمرة • تسليم فوري</span>
+      <span id="topbar-text">أسعار رمزية تبدأ من 1$ • تحديثات مستمرة • تسليم فوري</span>
       <div class="top-actions" style="display: flex; gap: 8px;">
         <button id="toggleTheme" class="theme-toggle" type="button" aria-label="تبديل الوضع">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -220,7 +256,6 @@
             <path d="M19.07 4.93L17.66 6.34" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
         </button>
-        <button id="toggleSimulation" class="chip simulation-mode" type="button" data-ar="وضع المحاكاة: تشغيل" data-en="Simulation Mode: ON">وضع المحاكاة: تشغيل</button>
         <button id="toggleLang" class="chip" type="button">EN / AR</button>
       </div>
     </div>
@@ -228,150 +263,269 @@
 
   <header class="navbar">
     <div class="container nav-wrap">
-      <a href="#home" class="brand" id="brandText">PixelDrop</a>
+      <a href="#home" class="brand">PixelDrop</a>
       <nav class="nav-links">
-        <a href="#home" id="navHome">الرئيسية</a>
-        <a href="#featured" id="navFeatured">الأعمال</a>
-        <a href="#bundles" id="navBundles">الباقات</a>
-        <a href="#reviews" id="navReviews">التقييمات</a>
-        <a href="#faq" id="navFaq">الأسئلة</a>
+        <a href="#home" data-i18n="home">الرئيسية</a>
+        <a href="#portfolio" data-i18n="portfolio">معرض الأعمال</a>
+        <a href="#bundles" data-i18n="bundles">الباقات</a>
+        <a href="#custom-order" data-i18n="customOrder">طلب تصميم</a>
+        <a href="#reviews" data-i18n="reviews">التقييمات</a>
+        <a href="#faq" data-i18n="faq">الأسئلة</a>
       </nav>
-      <button class="cart-btn" id="openCart" type="button">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M3 3H5L5.4 5M7 13H17L21 5H5.4M7 13L5.4 5M7 13L4.7 15.3C4.3 15.7 4.6 16.4 5.2 16.4H17M17 13V16.4M9 19C9 19.6 8.6 20 8 20C7.4 20 7 19.6 7 19C7 18.4 7.4 18 8 18C8.6 18 9 18.4 9 19ZM17 19C17 19.6 16.6 20 16 20C15.4 20 15 19.6 15 19C15 18.4 15.4 18 16 18C16.6 18 17 18.4 17 19Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-        <span id="cartText">السلة</span>
-        <span class="cart-count" id="cartCount">0</span>
-      </button>
+      <div style="display: flex; gap: 10px;">
+        <button class="user-btn" id="openUser" type="button">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M20 21V19C20 17.9391 19.5786 16.9217 18.8284 16.1716C18.0783 15.4214 17.0609 15 16 15H8C6.93913 15 5.92172 15.4214 5.17157 16.1716C4.42143 16.9217 4 17.9391 4 19V21" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M12 11C14.2091 11 16 9.20914 16 7C16 4.79086 14.2091 3 12 3C9.79086 3 8 4.79086 8 7C8 9.20914 9.79086 11 12 11Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <span data-i18n="account">حسابي</span>
+        </button>
+        <button class="cart-btn" id="openCart" type="button">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M3 3H5L5.4 5M7 13H17L21 5H5.4M7 13L5.4 5M7 13L4.7 15.3C4.3 15.7 4.6 16.4 5.2 16.4H17M17 13V16.4M9 19C9 19.6 8.6 20 8 20C7.4 20 7 19.6 7 19C7 18.4 7.4 18 8 18C8.6 18 9 18.4 9 19ZM17 19C17 19.6 16.6 20 16 20C15.4 20 15 19.6 15 19C15 18.4 15.4 18 16 18C16.6 18 17 18.4 17 19Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <span data-i18n="cart">السلة</span>
+          <span class="cart-count" id="cartCount">0</span>
+        </button>
+      </div>
     </div>
   </header>
 
   <section id="home" class="hero">
     <canvas id="spaceCanvas"></canvas>
     <div class="container hero-content">
-      <h1 class="floating" id="heroTitle">فن بكسل عصري، سريع، وبأسعار رمزية</h1>
-      <p id="heroDesc">اختيارات جاهزة من 1$ إلى 5$ مع انتقالات سلسة وتجربة مستخدم 2025.</p>
+      <h1 class="floating" data-i18n="heroTitle">فن بكسل عصري، سريع، وبأسعار رمزية</h1>
+      <p data-i18n="heroDesc">اختيارات جاهزة من 1$ إلى 5$ مع انتقالات سلسة وتجربة مستخدم 2025.</p>
       <div class="hero-cta" style="display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;">
-        <a href="#featured" class="btn primary pulse" style="animation-delay: 0.5s;" id="browseBtn">تصفح الأعمال</a>
-        <a href="#bundles" class="btn ghost" id="bundlesBtn">الباقات المميزة</a>
+        <a href="#portfolio" class="btn primary pulse" style="animation-delay: 0.5s;" data-i18n="browseWorks">تصفح الأعمال</a>
+        <a href="#bundles" class="btn ghost" data-i18n="premiumBundles">الباقات المميزة</a>
       </div>
       <div class="trust">
-        <div class="badge" id="trust1">تسليم فوري</div>
-        <div class="badge" id="trust2">حقوق استخدام تجارية</div>
-        <div class="badge" id="trust3">ضمان رضا</div>
+        <div class="badge" data-i18n="instantDelivery">تسليم فوري</div>
+        <div class="badge" data-i18n="commercialRights">حقوق استخدام تجارية</div>
+        <div class="badge" data-i18n="satisfactionGuarantee">ضمان رضا</div>
       </div>
     </div>
   </section>
 
-  <section id="featured" class="section">
+  <section id="portfolio" class="section">
     <div class="container">
       <div class="section-head">
-        <h2 id="featuredTitle">أعمال مختارة</h2>
-        <p id="featuredDesc">منتجات جاهزة بأسعار من 1$ إلى 5$ — اشتري مباشرة واستلم فورًا.</p>
+        <h2 data-i18n="portfolioTitle">معرض الأعمال</h2>
+        <p data-i18n="portfolioDesc">تصفح مجموعة من أعمالي السابقة في فن البكسل واختر ما يناسب مشروعك.</p>
+      </div>
+      
+      <div class="portfolio-categories">
+        <div class="portfolio-category active" data-category="all" data-i18n="all">الكل</div>
+        <div class="portfolio-category" data-category="characters" data-i18n="characters">شخصيات</div>
+        <div class="portfolio-category" data-category="backgrounds" data-i18n="backgrounds">خلفيات</div>
+        <div class="portfolio-category" data-category="icons" data-i18n="icons">أيقونات</div>
+        <div class="portfolio-category" data-category="items" data-i18n="items">عناصر</div>
+      </div>
+      
+      <div class="grid portfolio-items" id="portfolioGrid">
+        <!-- سيتم ملء هذه القسم بالصور من خلال JavaScript -->
+      </div>
+    </div>
+  </section>
+
+  <section id="featured" class="section alt">
+    <div class="container">
+      <div class="section-head">
+        <h2 data-i18n="featuredTitle">أعمال مختارة</h2>
+        <p data-i18n="featuredDesc">منتجات جاهزة بأسعار من 1$ إلى 5$ — اشتري مباشرة واستلم فورًا.</p>
       </div>
       <div class="grid products" id="productsGrid">
-        <article class="card product available-product"
+        <article class="card product available-product glow"
           data-id="p1"
           data-name-ar="أيقونة بطل 16×16"
           data-name-en="Hero Icon 16×16"
           data-price="1">
           <div class="info">
-            <h3 class="name" data-ar="أيقونة بطل 16×16" data-en="Hero Icon 16×16">أيقونة بطل 16×16</h3>
-            <p class="desc" data-ar="تفاصيل دقيقة، حجم صغير، مثالي للألعاب." data-en="Fine details, small size, perfect for games.">تفاصيل دقيقة، حجم صغير، مثالي للألعاب.</p>
+            <h3 class="name">أيقونة بطل 16×16</h3>
+            <p class="desc">تفاصيل دقيقة، حجم صغير، مثالي للألعاب.</p>
           </div>
           <div class="buy">
             <span class="price">$1</span>
-            <button class="btn add" type="button" data-ar="أضف للسلة" data-en="Add to Cart">أضف للسلة</button>
+            <button class="btn add" type="button" data-i18n="addToCart">أضف للسلة</button>
           </div>
         </article>
 
-        <article class="card product">
-          <div class="soon-badge" data-ar="قريبًا" data-en="Soon">قريبًا</div>
+        <article class="card product free-product">
           <div class="info">
-            <h3 class="name" data-ar="لوحة مدينة صغيرة" data-en="Small City Tileset">لوحة مدينة صغيرة</h3>
-            <p class="desc" data-ar="مربعات مدينة 32×32 جاهزة للتوسيع." data-en="32×32 city tiles ready for expansion.">مربعات مدينة 32×32 جاهزة للتوسيع.</p>
+            <h3 class="name" data-i18n="freeProductTitle">صورة مجانية للتجربة</h3>
+            <p class="desc" data-i18n="freeProductDesc">حمّل هذه الصورة مجانًا، وإذا أعجبتك اطلب المزيد!</p>
           </div>
           <div class="buy">
-            <span class="price">$3</span>
-            <button class="btn" type="button" disabled data-ar="قريبًا" data-en="Soon">قريبًا</button>
+            <span class="price" data-i18n="free">مجاني</span>
+            <button class="btn download-btn" id="downloadFree" type="button" data-i18n="download">تحميل</button>
           </div>
         </article>
 
         <article class="card product">
-          <div class="soon-badge" data-ar="قريبًا" data-en="Soon">قريبًا</div>
+          <div class="soon-badge" data-i18n="soon">قريبًا</div>
           <div class="info">
-            <h3 class="name" data-ar="حزمة شخصيات 8 أنماط" data-en="Character Pack 8 Styles">حزمة شخصيات 8 أنماط</h3>
-            <p class="desc" data-ar="ثمانية أنماط متنوعة مع ملفات مصدرية." data-en="Eight diverse styles with source files.">ثمانية أنماط متنوعة مع ملفات مصدرية.</p>
+            <h3 class="name">حزمة شخصيات 8 أنماط</h3>
+            <p class="desc">ثمانية أنماط متنوعة مع ملفات مصدرية.</p>
           </div>
           <div class="buy">
             <span class="price">$5</span>
-            <button class="btn" type="button" disabled data-ar="قريبًا" data-en="Soon">قريبًا</button>
+            <button class="btn" type="button" disabled data-i18n="soon">قريبًا</button>
           </div>
         </article>
       </div>
     </div>
   </section>
 
-  <section id="bundles" class="section alt">
+  <section id="bundles" class="section">
     <div class="container">
       <div class="section-head">
-        <h2 id="bundlesTitle">الباقات المميزة</h2>
-        <p id="bundlesDesc">وفّر أكثر مع باقات مجمعة بأسعار رمزية.</p>
+        <h2 data-i18n="bundlesTitle">الباقات المميزة</h2>
+        <p data-i18n="bundlesDesc">وفّر أكثر مع باقات مجمعة بأسعار رمزية.</p>
       </div>
       <div class="grid bundles">
         <article class="card bundle">
-          <div class="soon-badge" data-ar="قريبًا" data-en="Soon">قريبًا</div>
           <div class="info">
-            <h3 class="name" data-ar="باقة المبتدئ" data-en="Starter Bundle">باقة المبتدئ</h3>
+            <h3 class="name">باقة المبتدئ</h3>
             <ul class="features">
-              <li data-ar="3 أيقونات 16×16" data-en="3 16×16 icons">3 أيقونات 16×16</li>
-              <li data-ar="ترخيص استخدام تجاري" data-en="Commercial license">ترخيص استخدام تجاري</li>
-              <li data-ar="تسليم فوري" data-en="Instant delivery">تسليم فوري</li>
+              <li>3 أيقونات 16×16</li>
+              <li>ترخيص استخدام تجاري</li>
+              <li>تسليم فوري</li>
             </ul>
           </div>
           <div class="buy">
             <span class="price">$3</span>
-            <button class="btn" type="button" disabled data-ar="قريبًا" data-en="Soon">قريبًا</button>
+            <button class="btn add" type="button" data-i18n="addToCart">أضف للسلة</button>
           </div>
         </article>
 
         <article class="card bundle">
-          <div class="soon-badge" data-ar="قريبًا" data-en="Soon">قريبًا</div>
           <div class="info">
-            <h3 class="name" data-ar="باقة المطوّر" data-en="Developer Bundle">باقة المطوّر</h3>
+            <h3 class="name">باقة المطوّر</h3>
             <ul class="features">
-              <li data-ar="10 مربعات مدينة 32×32" data-en="10 32×32 city tiles">10 مربعات مدينة 32×32</li>
-              <li data-ar="ملفات مصدرية" data-en="Source files">ملفات مصدرية</li>
-              <li data-ar="دليل دمج سريع" data-en="Quick integration guide">دليل دمج سريع</li>
+              <li>10 مربعات مدينة 32×32</li>
+              <li>ملفات مصدرية</li>
+              <li>دليل دمج سريع</li>
             </ul>
           </div>
           <div class="buy">
             <span class="price">$5</span>
-            <button class="btn" type="button" disabled data-ar="قريبًا" data-en="Soon">قريبًا</button>
+            <button class="btn add" type="button" data-i18n="addToCart">أضف للسلة</button>
           </div>
         </article>
       </div>
+    </div>
+  </section>
+
+  <section id="custom-order" class="section alt">
+    <div class="container">
+      <div class="section-head">
+        <h2 data-i18n="customOrderTitle">اطلب تصميم خاص</h2>
+        <p data-i18n="customOrderDesc">أخبرنا بمتطلباتك وسنصمم لك ما تريد.</p>
+      </div>
+      <div class="card" style="max-width: 600px; margin: 0 auto;">
+        <div class="info">
+          <form id="customOrderForm">
+            <label style="display: block; margin-bottom: 15px;">
+              <span data-i18n="designType">نوع التصميم</span><br>
+              <select style="width:100%;padding:10px;border-radius:10px;border:1px solid rgba(255,255,255,.2);background:rgba(255,255,255,.06);color:var(--text);margin-top:5px;" required>
+                <option value="" data-i18n="selectOption">اختر...</option>
+                <option value="character" data-i18n="characterDesign">تصميم شخصية</option>
+                <option value="background" data-i18n="backgroundDesign">تصميم خلفية</option>
+                <option value="icon" data-i18n="iconDesign">تصميم أيقونة</option>
+                <option value="item" data-i18n="itemDesign">تصميم عنصر</option>
+              </select>
+            </label>
+            
+            <label style="display: block; margin-bottom: 15px;">
+              <span data-i18n="preferredColors">الألوان المطلوبة</span><br>
+              <input type="text" style="width:100%;padding:10px;border-radius:10px;border:1px solid rgba(255,255,255,.2);background:rgba(255,255,255,.06);color:var(--text);margin-top:5px;" placeholder="أزرق، أحمر، أصفر" required>
+            </label>
+            
+            <label style="display: block; margin-bottom: 15px;">
+              <span data-i18n="size">الحجم</span><br>
+              <select style="width:100%;padding:10px;border-radius:10px;border:1px solid rgba(255,255,255,.2);background:rgba(255,255,255,.06);color:var(--text);margin-top:5px;" required>
+                <option value="" data-i18n="selectOption">اختر...</option>
+                <option value="16x16">16×16 بكسل</option>
+                <option value="32x32">32×32 بكسل</option>
+                <option value="64x64">64×64 بكسل</option>
+                <option value="custom" data-i18n="customSize">مقاس مخصص</option>
+              </select>
+            </label>
+            
+            <label style="display: block; margin-bottom: 15px;">
+              <span data-i18n="expectedPrice">السعر المتوقع ($)</span><br>
+              <input type="number" min="1" max="20" style="width:100%;padding:10px;border-radius:10px;border:1px solid rgba(255,255,255,.2);background:rgba(255,255,255,.06);color:var(--text);margin-top:5px;" required>
+            </label>
+            
+            <label style="display: block; margin-bottom: 15px;">
+              <span data-i18n="additionalDetails">تفاصيل إضافية</span><br>
+              <textarea style="width:100%;padding:10px;border-radius:10px;border:1px solid rgba(255,255,255,.2);background:rgba(255,255,255,.06);color:var(--text);margin-top:5px;min-height:100px;" placeholder="أي تفاصيل إضافية حول التصميم المطلوب..."></textarea>
+            </label>
+            
+            <button class="btn primary" type="submit" style="width:100%;" data-i18n="sendRequest">إرسال الطلب</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="reviews" class="section">
+    <div class="container">
+      <div class="section-head">
+        <h2 data-i18n="reviewsTitle">التقييمات</h2>
+        <p data-i18n="reviewsDesc">كل تقييم يظهر تلقائيًا بعد الشراء.</p>
+      </div>
+      <div id="reviewsList" class="reviews-list grid" style="grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));"></div>
     </div>
   </section>
 
   <section id="faq" class="section alt">
     <div class="container">
       <div class="section-head">
-        <h2 id="faqTitle">الأسئلة الشائعة</h2>
+        <h2 data-i18n="faqTitle">الأسئلة الشائعة</h2>
       </div>
       <div class="faq">
         <details>
-          <summary data-ar="كيف تتم عملية التسليم؟" data-en="How does delivery work?">كيف تتم عملية التسليم؟</summary>
-          <p data-ar="بعد الدفع، تحصل على رابط التحميل فورًا داخل الموقع، ومعه الإيميل إن رغبت." data-en="After payment, you get the download link immediately on the site, and via email if you wish.">بعد الدفع، تحصل على رابط التحميل فورًا داخل الموقع، ومعه الإيميل إن رغبت.</p>
+          <summary data-i18n="faq1Question">كيف تتم عملية التسليم؟</summary>
+          <p data-i18n="faq1Answer">بعد الدفع، تحصل على رابط التحميل فورًا داخل الموقع، ومعه الإيميل إن رغبت.</p>
         </details>
         <details>
-          <summary data-ar="هل الأسعار ثابتة؟" data-en="Are prices fixed?">هل الأسعار ثابتة؟</summary>
-          <p data-ar="نعم، بين 1$ و5$ حسب المنتج أو الباقة. أحيانًا نضيف خصم رمضاني أو موسمي." data-en="Yes, between $1 and $5 depending on the product or bundle. Sometimes we add seasonal or Ramadan discounts.">نعم، بين 1$ و5$ حسب المنتج أو الباقة. أحيانًا نضيف خصم رمضاني أو موسمي.</p>
+          <summary data-i18n="faq2Question">هل الأسعار ثابتة؟</summary>
+          <p data-i18n="faq2Answer">نعم، بين 1$ و5$ حسب المنتج أو الباقة. أحيانًا نضيف خصم رمضاني أو موسمي.</p>
         </details>
         <details>
-          <summary data-ar="ما حقوق الاستخدام؟" data-en="What are the usage rights?">ما حقوق الاستخدام؟</summary>
-          <p data-ar="يسمح بالاستخدام التجاري في الألعاب والمشاريع مع منع إعادة البيع كأصول مستقلة." data-en="Commercial use in games and projects is allowed, but reselling as standalone assets is prohibited.">يسمح بالاستخدام التجاري في الألعاب والمشاريع مع منع إعادة البيع كأصول مستقلة.</p>
+          <summary data-i18n="faq3Question">ما حقوق الاستخدام؟</summary>
+          <p data-i18n="faq3Answer">يسمح بالاستخدام التجاري في الألعاب والمشاريع مع منع إعادة البيع كأصول مستقلة.</p>
         </details>
+        <details>
+          <summary data-i18n="faq4Question">هل يمكنني إعادة بيع الصور؟</summary>
+          <p data-i18n="faq4Answer">لا، لا يمكن إعادة بيع الصور كأصول مستقلة، ولكن يمكن استخدامها في مشاريعك وألعابك.</p>
+        </details>
+        <details>
+          <summary data-i18n="faq5Question">هل هناك ضمان استرجاع؟</summary>
+          <p data-i18n="faq5Answer">نعم، في حال وجود مشكلة في المنتج يمكنك طلب استرجاع خلال 7 أيام.</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <section id="policy" class="section">
+    <div class="container">
+      <div class="section-head">
+        <h2 data-i18n="policyTitle">سياسة الاستخدام</h2>
+      </div>
+      <div class="card">
+        <div class="info">
+          <h3 data-i18n="usageRights">حقوق الاستخدام</h3>
+          <p data-i18n="usageRightsText">جميع الصور المباعة في PixelDrop تأتي مع ترخيص استخدام تجاري يسمح لك باستخدامها في مشاريعك الشخصية والتجارية، بما في ذلك الألعاب والتطبيقات والمواقع الإلكترونية. ومع ذلك، لا يسمح لك بإعادة بيع هذه الصور كأصول مستقلة أو كجزء من حزمة أصول.</p>
+          
+          <h3 data-i18n="refundPolicy" style="margin-top: 20px;">سياسة الاسترجاع</h3>
+          <p data-i18n="refundPolicyText">نحن نضمن رضاكم عن منتجاتنا. في حال وجود أي مشكلة في المنتج الذي اشتريتموه، يمكنكم طلب استرجاع خلال 7 أيام من تاريخ الشراء. يرجى التواصل معنا عبر البريد الإلكتروني alipoq1@outlook.sa لمعالجة طلبكم.</p>
+          
+          <h3 data-i18n="privacyPolicy" style="margin-top: 20px;">سياسة الخصوصية</h3>
+          <p data-i18n="privacyPolicyText">نحن نحترم خصوصيتكم ولا نشارك معلوماتكم الشخصية مع أي طرف ثالث. نستخدم بريدكم الإلكتروني فقط لإرسال روابط التحميل والتحديثات المتعلقة بمنتجاتكم.</p>
+        </div>
       </div>
     </div>
   </section>
@@ -380,61 +534,88 @@
     <div class="container foot-wrap">
       <div class="footer-col">
         <h4>PixelDrop</h4>
-        <p class="muted" data-ar="متجر فن بكسل عصري يقدم أصول ألعاب بأسعار رمزية وجودة عالية." data-en="Modern pixel art store offering game assets at symbolic prices with high quality.">متجر فن بكسل عصري يقدم أصول ألعاب بأسعار رمزية وجودة عالية.</p>
+        <p class="muted" data-i18n="footerDesc">متجر فن بكسل عصري يقدم أصول ألعاب بأسعار رمزية وجودة عالية.</p>
+        <p class="muted" style="margin-top: 10px;">alipoq1@outlook.sa</p>
       </div>
       <div class="footer-col">
-        <h4 data-ar="روابط سريعة" data-en="Quick Links">روابط سريعة</h4>
+        <h4 data-i18n="quickLinks">روابط سريعة</h4>
         <ul>
-          <li><a href="#home" data-ar="الرئيسية" data-en="Home">الرئيسية</a></li>
-          <li><a href="#featured" data-ar="الأعمال" data-en="Works">الأعمال</a></li>
-          <li><a href="#bundles" data-ar="الباقات" data-en="Bundles">الباقات</a></li>
-          <li><a href="#reviews" data-ar="التقييمات" data-en="Reviews">التقييمات</a></li>
+          <li><a href="#home" data-i18n="home">الرئيسية</a></li>
+          <li><a href="#portfolio" data-i18n="portfolio">معرض الأعمال</a></li>
+          <li><a href="#bundles" data-i18n="bundles">الباقات</a></li>
+          <li><a href="#reviews" data-i18n="reviews">التقييمات</a></li>
         </ul>
       </div>
       <div class="footer-col">
-        <h4 data-ar="الدعم" data-en="Support">الدعم</h4>
+        <h4 data-i18n="support">الدعم</h4>
         <ul>
-          <li><a href="#faq" data-ar="الأسئلة الشائعة" data-en="FAQ">الأسئلة الشائعة</a></li>
-          <li><a href="#" data-ar="سياسة الخصوصية" data-en="Privacy Policy">سياسة الخصوصية</a></li>
-          <li><a href="#" data-ar="شروط الاستخدام" data-en="Terms of Service">شروط الاستخدام</a></li>
-          <li><a href="#" data-ar="اتصل بنا" data-en="Contact Us">اتصل بنا</a></li>
+          <li><a href="#faq" data-i18n="faq">الأسئلة الشائعة</a></li>
+          <li><a href="#policy" data-i18n="policy">سياسة الاستخدام</a></li>
+          <li><a href="#custom-order" data-i18n="customOrder">طلب تصميم</a></li>
+          <li><a href="mailto:alipoq1@outlook.sa" data-i18n="contactUs">اتصل بنا</a></li>
         </ul>
       </div>
       <div class="footer-col">
-        <h4 data-ar="النشرة البريدية" data-en="Newsletter">النشرة البريدية</h4>
-        <p class="muted" data-ar="اشترك لتصلك آخر التحديثات والعروض." data-en="Subscribe to receive the latest updates and offers.">اشترك لتصلك آخر التحديثات والعروض.</p>
+        <h4 data-i18n="newsletter">النشرة البريدية</h4>
+        <p class="muted" data-i18n="newsletterDesc">اشترك لتصلك آخر التحديثات والعروض.</p>
         <div class="newsletter-form">
-          <input type="email" placeholder="بريدك الإلكتروني" id="newsletterEmail">
-          <button class="btn primary" type="button" id="subscribeBtn" data-ar="اشتراك" data-en="Subscribe">اشتراك</button>
+          <input type="email" placeholder="بريدك الإلكتروني" id="newsletterEmail" data-i18n-placeholder="emailPlaceholder">
+          <button class="btn primary" type="button" id="subscribeBtn" data-i18n="subscribe">اشتراك</button>
         </div>
       </div>
-      <div class="made-by" data-ar="صُمّم بواسطة شاب عمره 16 سنة — أول تجربة له" data-en="Designed by a 16-year-old — his first experience">صُمّم بواسطة شاب عمره 16 سنة — أول تجربة له</div>
+      <div class="made-by" data-i18n="madeBy">صُمّم بواسطة شاب عمره 16 سنة — أول تجربة له</div>
     </div>
   </footer>
 
   <div class="cart-drawer" id="cartDrawer" aria-hidden="true">
     <div class="drawer-content">
       <div class="drawer-head">
-        <h3 data-ar="سلتك" data-en="Your Cart">سلتك</h3>
+        <h3 data-i18n="yourCart">سلتك</h3>
         <button id="closeCart" class="icon" type="button">✕</button>
       </div>
       <div id="cartItems" class="cart-items"></div>
       <div class="drawer-foot">
         <div class="coupon-section">
-          <input type="text" id="couponCode" placeholder="كود الخصم" data-ar-placeholder="كود الخصم" data-en-placeholder="Coupon Code">
-          <button class="btn ghost" id="applyCoupon" type="button" data-ar="تطبيق" data-en="Apply">تطبيق</button>
+          <input type="text" id="couponCode" placeholder="كود الخصم" data-i18n-placeholder="couponPlaceholder">
+          <button class="btn ghost" id="applyCoupon" type="button" data-i18n="apply">تطبيق</button>
         </div>
         <div class="total-row">
-          <span data-ar="الإجمالي" data-en="Subtotal">الإجمالي</span>: <strong id="cartTotal">$0</strong>
+          <span data-i18n="total">الإجمالي</span>: <strong id="cartTotal">$0</strong>
         </div>
         <div class="discount-row" id="discountRow">
-          <span data-ar="الخصم" data-en="Discount">الخصم</span>: <strong id="discountAmount">$0</strong>
+          <span data-i18n="discount">الخصم</span>: <strong id="discountAmount">$0</strong>
         </div>
         <div class="total-row" id="finalTotalRow">
-          <span data-ar="المجموع النهائي" data-en="Total">المجموع النهائي</span>: <strong id="finalTotal">$0</strong>
+          <span data-i18n="finalTotal">المجموع النهائي</span>: <strong id="finalTotal">$0</strong>
         </div>
-        <div class="security-badge" data-ar="🔒 مدفوعات آمنة عبر PayPal" data-en="🔒 Secure payments via PayPal">🔒 مدفوعات آمنة عبر PayPal</div>
-        <button class="btn primary" id="checkoutBtn" type="button" data-ar="إتمام الشراء" data-en="Checkout">إتمام الشراء</button>
+        <div class="pay-methods">
+          <span class="muted" data-i18n="paymentMethod">طريقة الدفع:</span>
+          <label class="chip"><input type="radio" name="pay" value="paypal" checked> PayPal</label>
+        </div>
+        <button class="btn primary" id="checkoutBtn" type="button" data-i18n="checkout">إتمام الشراء</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="user-drawer" id="userDrawer" aria-hidden="true">
+    <div class="drawer-content">
+      <div class="drawer-head">
+        <h3 data-i18n="myAccount">حسابي</h3>
+        <button id="closeUser" class="icon" type="button">✕</button>
+      </div>
+      <div class="drawer-body" style="padding: 18px; flex: 1; overflow: auto;">
+        <div id="userProfile">
+          <!-- سيتم ملء هذا القسم من خلال JavaScript -->
+        </div>
+        <div id="userOrders" style="margin-top: 20px;">
+          <h4 data-i18n="myOrders">طلباتي</h4>
+          <div id="ordersList">
+            <!-- سيتم ملء هذا القسم من خلال JavaScript -->
+          </div>
+        </div>
+      </div>
+      <div class="drawer-foot">
+        <button class="btn ghost" id="logoutBtn" type="button" data-i18n="logout">تسجيل الخروج</button>
       </div>
     </div>
   </div>
@@ -442,38 +623,23 @@
   <div class="modal" id="loginModal" aria-hidden="true">
     <div class="modal-content">
       <div class="modal-head">
-        <h3 data-ar="سجّل الدخول" data-en="Sign Up">سجّل الدخول</h3>
+        <h3 data-i18n="loginRegister">سجّل الدخول / إنشاء حساب</h3>
       </div>
       <div class="modal-body">
-        <input type="text" id="loginName" class="input-field" placeholder="الاسم الكامل" data-ar-placeholder="الاسم الكامل" data-en-placeholder="Full Name" required>
-        <input type="email" id="loginEmail" class="input-field" placeholder="البريد الإلكتروني" data-ar-placeholder="البريد الإلكتروني" data-en-placeholder="Email Address" required>
-        <input type="password" id="loginPassword" class="input-field" placeholder="كلمة المرور" data-ar-placeholder="كلمة المرور" data-en-placeholder="Password" required>
-        <input type="password" id="loginConfirmPassword" class="input-field" placeholder="تأكيد كلمة المرور" data-ar-placeholder="تأكيد كلمة المرور" data-en-placeholder="Confirm Password" required>
-        
-        <div class="security-badge" data-ar="🔒 نحمي بياناتك ولا نشاركها مع أحد" data-en="🔒 We protect your data and don't share it with anyone">🔒 نحمي بياناتك ولا نشاركها مع أحد</div>
-        
+        <label><span data-i18n="name">الاسم</span><br><input id="loginName" type="text" style="width:100%;padding:10px;border-radius:10px;border:1px solid rgba(255,255,255,.2);background:rgba(255,255,255,.06);color:var(--text);margin-top:5px;" required></label>
+        <br><br>
+        <label><span data-i18n="email">الإيميل</span><br><input id="loginEmail" type="email" style="width:100%;padding:10px;border-radius:10px;border:1px solid rgba(255,255,255,.2);background:rgba(255,255,255,.06);color:var(--text);margin-top:5px;" required></label>
+        <br><br>
+        <label><span data-i18n="password">كلمة المرور</span><br><input id="loginPassword" type="password" style="width:100%;padding:10px;border-radius:10px;border:1px solid rgba(255,255,255,.2);background:rgba(255,255,255,.06);color:var(--text);margin-top:5px;" required></label>
+        <div id="passwordStrength" class="password-strength"></div>
+        <br>
+        <label><span data-i18n="confirmPassword">تأكيد كلمة المرور</span><br><input id="loginConfirmPassword" type="password" style="width:100%;padding:10px;border-radius:10px;border:1px solid rgba(255,255,255,.2);background:rgba(255,255,255,.06);color:var(--text);margin-top:5px;" required></label>
         <div class="g-recaptcha" data-sitekey="6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI"></div>
-        <p class="muted" data-ar="نستخدم الإيميل لإرسال رابط التحميل بعد التقييم." data-en="We use email to send download links after review.">نستخدم الإيميل لإرسال رابط التحميل بعد التقييم.</p>
+        <p class="muted" data-i18n="emailUsage">نستخدم الإيميل لإرسال رابط التحميل بعد التقييم.</p>
       </div>
       <div class="modal-foot">
-        <button class="btn ghost" id="cancelLogin" type="button" data-ar="إلغاء" data-en="Cancel">إلغاء</button>
-        <button class="btn primary" id="submitLogin" type="button" data-ar="تسجيل الدخول" data-en="Sign Up">تسجيل الدخول</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- Modal for payment simulation -->
-  <div class="modal" id="paymentModal" aria-hidden="true">
-    <div class="modal-content">
-      <div class="modal-head">
-        <h3 id="paymentModalTitle" data-ar="محاكاة الدفع" data-en="Payment Simulation">محاكاة الدفع</h3>
-      </div>
-      <div class="modal-body">
-        <p id="paymentModalMessage" data-ar="تمت عملية الدفع بنجاح في وضع المحاكاة. سيتم إرسال المنتجات إلى بريدك الإلكتروني." data-en="Payment completed successfully in simulation mode. Products will be sent to your email.">تمت عملية الدفع بنجاح في وضع المحاكاة. سيتم إرسال المنتجات إلى بريدك الإلكتروني.</p>
-        <div class="security-badge" id="paymentSuccessBadge" data-ar="✅ تمت العملية بنجاح" data-en="✅ Operation completed successfully">✅ تمت العملية بنجاح</div>
-      </div>
-      <div class="modal-foot">
-        <button class="btn primary" id="closePaymentModal" type="button" data-ar="حسناً" data-en="OK">حسناً</button>
+        <button class="btn ghost" id="cancelLogin" type="button" data-i18n="cancel">إلغاء</button>
+        <button class="btn primary" id="submitLogin" type="button" data-i18n="loginRegister">تسجيل الدخول</button>
       </div>
     </div>
   </div>
@@ -482,54 +648,6 @@
 
   <script src="https://www.google.com/recaptcha/api.js" async defer></script>
   <script>
-    // نظام الترجمة
-    const translations = {
-      ar: {
-        topbarText: "أسعار رمزية تبدأ من 1$ • تحديثات مستمرة • تسليم فوري",
-        brandText: "PixelDrop",
-        navHome: "الرئيسية",
-        navFeatured: "الأعمال",
-        navBundles: "الباقات",
-        navReviews: "التقييمات",
-        navFaq: "الأسئلة",
-        cartText: "السلة",
-        heroTitle: "فن بكسل عصري، سريع، وبأسعار رمزية",
-        heroDesc: "اختيارات جاهزة من 1$ إلى 5$ مع انتقالات سلسة وتجربة مستخدم 2025.",
-        browseBtn: "تصفح الأعمال",
-        bundlesBtn: "الباقات المميزة",
-        trust1: "تسليم فوري",
-        trust2: "حقوق استخدام تجارية",
-        trust3: "ضمان رضا",
-        featuredTitle: "أعمال مختارة",
-        featuredDesc: "منتجات جاهزة بأسعار من 1$ إلى 5$ — اشتري مباشرة واستلم فورًا.",
-        bundlesTitle: "الباقات المميزة",
-        bundlesDesc: "وفّر أكثر مع باقات مجمعة بأسعار رمزية.",
-        faqTitle: "الأسئلة الشائعة"
-      },
-      en: {
-        topbarText: "Symbolic prices starting from $1 • Continuous updates • Instant delivery",
-        brandText: "PixelDrop",
-        navHome: "Home",
-        navFeatured: "Works",
-        navBundles: "Bundles",
-        navReviews: "Reviews",
-        navFaq: "FAQ",
-        cartText: "Cart",
-        heroTitle: "Modern, fast pixel art at symbolic prices",
-        heroDesc: "Ready-made choices from $1 to $5 with smooth transitions and 2025 user experience.",
-        browseBtn: "Browse Works",
-        bundlesBtn: "Premium Bundles",
-        trust1: "Instant Delivery",
-        trust2: "Commercial Usage Rights",
-        trust3: "Satisfaction Guarantee",
-        featuredTitle: "Featured Works",
-        featuredDesc: "Ready products priced from $1 to $5 — buy directly and receive instantly.",
-        bundlesTitle: "Premium Bundles",
-        bundlesDesc: "Save more with bundled packages at symbolic prices.",
-        faqTitle: "Frequently Asked Questions"
-      }
-    };
-
     // حالة التطبيق
     const state = {
       lang: localStorage.getItem('lang') || 'ar',
@@ -541,47 +659,17 @@
       appliedCoupon: null,
       discount: 0,
       orders: JSON.parse(localStorage.getItem('orders') || '[]'),
-      security: {
-        attempts: 0,
-        lastAttempt: 0,
-        blocked: false
-      },
-      simulationMode: localStorage.getItem('simulationMode') === 'true'
+      portfolioItems: [
+        { id: 'port1', category: 'characters', nameAr: 'شخصية فارس', nameEn: 'Knight Character', price: 2, descAr: 'شخصية فارس بتصميم بكسل أنيق', descEn: 'Elegant pixel art knight character' },
+        { id: 'port2', category: 'characters', nameAr: 'شخصية ساحر', nameEn: 'Wizard Character', price: 3, descAr: 'شخصية ساحر بتفاصيل سحرية', descEn: 'Wizard character with magical details' },
+        { id: 'port3', category: 'backgrounds', nameAr: 'غابة سحرية', nameEn: 'Magic Forest', price: 4, descAr: 'خلفية غابة سحرية بتفاصيل دقيقة', descEn: 'Magic forest background with fine details' },
+        { id: 'port4', category: 'backgrounds', nameAr: 'مدينة قديمة', nameEn: 'Old City', price: 5, descAr: 'خلفية مدينة قديمة بتصميم فريد', descEn: 'Old city background with unique design' },
+        { id: 'port5', category: 'icons', nameAr: 'أيقونات أسلحة', nameEn: 'Weapon Icons', price: 2, descAr: 'مجموعة أيقونات أسلحة متنوعة', descEn: 'Collection of various weapon icons' },
+        { id: 'port6', category: 'icons', nameAr: 'أيقونات عناصر', nameEn: 'Element Icons', price: 1, descAr: 'أيقونات عناصر الطبيعة', descEn: 'Nature element icons' },
+        { id: 'port7', category: 'items', nameAr: 'كنوز وأشياء نادرة', nameEn: 'Treasures and Rare Items', price: 3, descAr: 'مجموعة كنوز وأشياء نادرة للعبة', descEn: 'Collection of treasures and rare items for games' },
+        { id: 'port8', category: 'items', nameAr: 'أدوات ومعدات', nameEn: 'Tools and Equipment', price: 2, descAr: 'أدوات ومعدات بتصميم بكسل', descEn: 'Tools and equipment in pixel art' }
+      ]
     };
-
-    // تطبيق اللغة
-    function applyLanguage(lang) {
-      state.lang = lang;
-      localStorage.setItem('lang', lang);
-      document.documentElement.lang = lang;
-      document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
-      
-      // تحديث النصوص
-      Object.keys(translations[lang]).forEach(key => {
-        const element = document.getElementById(key);
-        if (element) element.textContent = translations[lang][key];
-      });
-      
-      // تحديث النصوص في العناصر الأخرى
-      document.querySelectorAll('[data-ar], [data-en]').forEach(element => {
-        const text = element.getAttribute(`data-${lang}`);
-        if (text) element.textContent = text;
-      });
-      
-      // تحديث placeholders
-      document.querySelectorAll('[data-ar-placeholder], [data-en-placeholder]').forEach(element => {
-        const placeholder = element.getAttribute(`data-${lang}-placeholder`);
-        if (placeholder) element.placeholder = placeholder;
-      });
-
-      // تحديث زر المحاكاة
-      const simulationButton = document.getElementById('toggleSimulation');
-      if (simulationButton) {
-        simulationButton.textContent = state.simulationMode ? 
-          (lang === 'ar' ? 'وضع المحاكاة: تشغيل' : 'Simulation Mode: ON') :
-          (lang === 'ar' ? 'وضع المحاكاة: إيقاف' : 'Simulation Mode: OFF');
-      }
-    }
 
     // تطبيق السمة
     function applyTheme() {
@@ -590,60 +678,16 @@
     }
 
     // حفظ السلة
-    function saveCart(){ 
-      const encrypted = btoa(JSON.stringify(state.cart));
-      localStorage.setItem('cart', encrypted);
-    }
+    function saveCart(){ localStorage.setItem('cart', JSON.stringify(state.cart)); }
     
     // حفظ التقييمات
-    function saveReviews(){ 
-      const encrypted = btoa(JSON.stringify(state.reviews));
-      localStorage.setItem('reviews', encrypted);
-    }
+    function saveReviews(){ localStorage.setItem('reviews', JSON.stringify(state.reviews)); }
     
     // حفظ المستخدم
-    function saveUser(){ 
-      const encrypted = btoa(JSON.stringify(state.user));
-      localStorage.setItem('user', encrypted);
-    }
+    function saveUser(){ localStorage.setItem('user', JSON.stringify(state.user)); }
     
     // حفظ الطلبات
-    function saveOrders(){ 
-      const encrypted = btoa(JSON.stringify(state.orders));
-      localStorage.setItem('orders', encrypted);
-    }
-
-    // تحميل البيانات المشفرة
-    function loadEncrypted(key) {
-      try {
-        const data = localStorage.getItem(key);
-        return data ? JSON.parse(atob(data)) : [];
-      } catch {
-        return [];
-      }
-    }
-
-    // التحقق من الأمان
-    function securityCheck() {
-      const now = Date.now();
-      if (state.security.blocked && now - state.security.lastAttempt < 300000) { // 5 دقائق
-        return false;
-      }
-      
-      if (now - state.security.lastAttempt < 1000) { // ثانية واحدة بين المحاولات
-        state.security.attempts++;
-        if (state.security.attempts >= 5) {
-          state.security.blocked = true;
-          state.security.lastAttempt = now;
-          return false;
-        }
-      } else {
-        state.security.attempts = 0;
-      }
-      
-      state.security.lastAttempt = now;
-      return true;
-    }
+    function saveOrders(){ localStorage.setItem('orders', JSON.stringify(state.orders)); }
 
     // عرض السلة
     function renderCart(){
@@ -652,7 +696,7 @@
       
       cont.innerHTML = '';
       
-      state.cart.forEach(item => {
+      state.cart.forEach(item=>{
         const row = document.createElement('div');
         row.className = 'cart-item';
         row.innerHTML = `
@@ -665,8 +709,8 @@
           </div>
           <button class="icon" aria-label="remove" type="button">🗑</button>
         `;
-        row.querySelector('button').addEventListener('click', () => {
-          state.cart = state.cart.filter(x => !(x.id === item.id && x.price === item.price));
+        row.querySelector('button').addEventListener('click', ()=>{
+          state.cart = state.cart.filter(x=>!(x.id===item.id && x.price===item.price));
           saveCart(); 
           renderCart();
           updateCartTotal();
@@ -692,9 +736,23 @@
       
       totalEl.textContent = `$${total}`;
       
-      // تطبيق الخصم إذا كان موجودًا
-      if (state.appliedCoupon && state.discount > 0) {
-        const discountValue = total * state.discount;
+      // تطبيق الخصم التلقائي عند شراء أكثر من منتج
+      let autoDiscount = 0;
+      if (state.cart.length >= 3) {
+        autoDiscount = 0.2; // خصم 20% عند شراء 3 منتجات أو أكثر
+      } else if (state.cart.length >= 2) {
+        autoDiscount = 0.1; // خصم 10% عند شراء منتجين
+      }
+      
+      // تطبيق الخصم الأعلى (إما الكوبون أو الخصم التلقائي)
+      let finalDiscount = state.discount;
+      if (autoDiscount > state.discount) {
+        finalDiscount = autoDiscount;
+        state.appliedCoupon = 'auto';
+      }
+      
+      if (finalDiscount > 0) {
+        const discountValue = total * finalDiscount;
         const finalTotal = total - discountValue;
         
         discountAmountEl.textContent = `-$${discountValue.toFixed(2)}`;
@@ -708,11 +766,6 @@
 
     // تطبيق كوبون الخصم
     function applyCoupon(code) {
-      if (!securityCheck()) {
-        toast(state.lang === 'ar' ? 'تم حظرك مؤقتًا بسبب كثرة المحاولات' : 'You are temporarily blocked due to too many attempts');
-        return false;
-      }
-      
       const coupons = {
         'WELCOME10': 0.1, // خصم 10%
         'PIXEL20': 0.2,   // خصم 20%
@@ -723,10 +776,10 @@
         state.appliedCoupon = code;
         state.discount = coupons[code];
         updateCartTotal();
-        toast(state.lang === 'ar' ? `تم تطبيق كود الخصم ${code}` : `Coupon ${code} applied`);
+        toast(`تم تطبيق كود الخصم ${code}`);
         return true;
       } else {
-        toast(state.lang === 'ar' ? 'كود الخصم غير صالح' : 'Invalid coupon code');
+        toast('كود الخصم غير صالح');
         return false;
       }
     }
@@ -736,7 +789,7 @@
       const t = document.getElementById('toast');
       t.textContent = msg; 
       t.classList.add('show');
-      setTimeout(() => t.classList.remove('show'), 3000);
+      setTimeout(()=>t.classList.remove('show'), 3000);
     }
 
     // شريط التقدم
@@ -749,7 +802,9 @@
 
     // Drawer control
     const drawer = document.getElementById('cartDrawer');
-    document.getElementById('openCart').addEventListener('click', () => {
+    const userDrawer = document.getElementById('userDrawer');
+    
+    document.getElementById('openCart').addEventListener('click', ()=>{
       if (!state.user) {
         openLoginModal();
         return;
@@ -757,13 +812,32 @@
       drawer.classList.add('active'); 
       renderCart();
     });
-    document.getElementById('closeCart').addEventListener('click', () => {
+    
+    document.getElementById('openUser').addEventListener('click', ()=>{
+      if (!state.user) {
+        openLoginModal();
+        return;
+      }
+      userDrawer.classList.add('active');
+      renderUserProfile();
+    });
+    
+    document.getElementById('closeCart').addEventListener('click', ()=>{
       drawer.classList.remove('active');
+    });
+    
+    document.getElementById('closeUser').addEventListener('click', ()=>{
+      userDrawer.classList.remove('active');
+    });
+
+    // Pay method selection
+    document.querySelectorAll('input[name="pay"]').forEach(r=>{
+      r.addEventListener('change', ()=>{ state.payMethod = r.value; });
     });
 
     // Add to cart
-    document.querySelectorAll('.add').forEach(btn => {
-      btn.addEventListener('click', e => {
+    document.querySelectorAll('.add').forEach(btn=>{
+      btn.addEventListener('click', e=>{
         if (!state.user) {
           openLoginModal();
           return;
@@ -771,9 +845,9 @@
         
         const card = e.target.closest('.product, .bundle');
         const item = {
-          id: card.getAttribute('data-id'),
-          name: state.lang === 'ar' ? card.getAttribute('data-name-ar') : card.getAttribute('data-name-en'),
-          price: card.getAttribute('data-price')
+          id: card.getAttribute('data-id') || 'bundle_' + Date.now(),
+          name: card.getAttribute('data-name-ar') || card.querySelector('.name').textContent,
+          price: card.getAttribute('data-price') || card.querySelector('.price').textContent.replace('$', '')
         };
         state.cart.push(item); 
         saveCart(); 
@@ -786,21 +860,16 @@
         }, 500);
         
         document.getElementById('cartCount').textContent = state.cart.length;
-        toast(state.lang === 'ar' ? 'تمت الإضافة للسلة' : 'Added to cart');
+        toast('تمت الإضافة للسلة');
       });
     });
 
-    // Checkout
-    document.getElementById('checkoutBtn').addEventListener('click', () => {
-      if(state.cart.length === 0) return;
+    // Checkout: require login; then go to selected pay method (PayPal)
+    document.getElementById('checkoutBtn').addEventListener('click', ()=>{
+      if(state.cart.length===0) return;
       if(!state.user){ 
         openLoginModal(); 
         return; 
-      }
-      
-      if (!securityCheck()) {
-        toast(state.lang === 'ar' ? 'تم حظرك مؤقتًا لأسباب أمنية' : 'You are temporarily blocked for security reasons');
-        return;
       }
       
       // حساب الإجمالي النهائي مع الخصم
@@ -809,22 +878,36 @@
         total += Number(item.price);
       });
       
-      if (state.appliedCoupon && state.discount > 0) {
-        total = total - (total * state.discount);
+      // تطبيق الخصم التلقائي
+      let autoDiscount = 0;
+      if (state.cart.length >= 3) {
+        autoDiscount = 0.2;
+      } else if (state.cart.length >= 2) {
+        autoDiscount = 0.1;
+      }
+      
+      let finalDiscount = state.discount;
+      if (autoDiscount > state.discount) {
+        finalDiscount = autoDiscount;
+      }
+      
+      if (finalDiscount > 0) {
+        total = total - (total * finalDiscount);
       }
       
       // تقريب الرقم إلى منزلتين عشريتين
       total = Math.round(total * 100) / 100;
       
-      // التحقق من أن المبلغ أكبر من الصفر
-      if (total <= 0) {
-        toast(state.lang === 'ar' ? 'المبلغ غير صالح' : 'Invalid amount');
-        return;
-      }
+      // بناء رابط PayPal مع السعر الإجمالي
+      const basePayPalUrl = 'https://paypal.me/PixelArt8/';
+      const payUrl = basePayPalUrl + total;
       
-      if (state.simulationMode) {
-        // وضع المحاكاة - عرض رسالة نجاح
-        showPaymentModal(true);
+      if(payUrl && payUrl.startsWith('https')){
+        // الانتقال إلى صفحة الدفع في PayPal
+        window.open(payUrl, '_blank');
+        
+        // إظهار رسالة للمستخدم
+        toast('يتم الآن تحويلك إلى PayPal لإكمال عملية الدفع...');
         
         // إنشاء فاتورة
         createInvoice();
@@ -834,77 +917,37 @@
         saveCart();
         renderCart();
         drawer.classList.remove('active');
-      } else {
-        // الوضع العادي - الانتقال إلى PayPal
-        // بناء رابط PayPal مع السعر الإجمالي
-        const basePayPalUrl = 'https://paypal.me/PixelArt8/';
-        const payUrl = basePayPalUrl + total;
         
-        if(payUrl && payUrl.startsWith('https')){
-          // إنشاء فاتورة
-          createInvoice();
-          
-          // الانتقال إلى صفحة الدفع في PayPal
-          window.open(payUrl, '_blank');
-          
-          // إظهار رسالة للمستخدم
-          toast(state.lang === 'ar' ? 'يتم الآن تحويلك إلى PayPal لإكمال عملية الدفع...' : 'Redirecting to PayPal to complete payment...');
-          
-          // إفراغ السلة بعد الدفع
-          state.cart = [];
-          saveCart();
-          renderCart();
-          drawer.classList.remove('active');
-          
-        } else {
-          alert(state.lang === 'ar' ? 'رابط الدفع غير صحيح' : 'Invalid payment link');
-        }
-      }
-    });
-
-    // عرض modal الدفع (للمحاكاة)
-    function showPaymentModal(success) {
-      const modal = document.getElementById('paymentModal');
-      const title = document.getElementById('paymentModalTitle');
-      const message = document.getElementById('paymentModalMessage');
-      const badge = document.getElementById('paymentSuccessBadge');
-      
-      if (success) {
-        title.textContent = state.lang === 'ar' ? 'محاكاة الدفع' : 'Payment Simulation';
-        message.textContent = state.lang === 'ar' ? 
-          'تمت عملية الدفع بنجاح في وضع المحاكاة. سيتم إرسال المنتجات إلى بريدك الإلكتروني.' : 
-          'Payment completed successfully in simulation mode. Products will be sent to your email.';
-        badge.textContent = state.lang === 'ar' ? '✅ تمت العملية بنجاح' : '✅ Operation completed successfully';
-        badge.style.display = 'block';
       } else {
-        title.textContent = state.lang === 'ar' ? 'خطأ في الدفع' : 'Payment Error';
-        message.textContent = state.lang === 'ar' ? 
-          'حدث خطأ في عملية الدفع. يرجى المحاولة مرة أخرى.' : 
-          'An error occurred during payment. Please try again.';
-        badge.textContent = state.lang === 'ar' ? '❌ فشلت العملية' : '❌ Operation failed';
-        badge.style.display = 'block';
+        alert('أضف رابط الدفع الصحيح (PayPal)');
       }
-      
-      modal.classList.add('active');
-    }
-
-    // إغلاق modal الدفع
-    document.getElementById('closePaymentModal').addEventListener('click', () => {
-      document.getElementById('paymentModal').classList.remove('active');
     });
 
     // إنشاء فاتورة
     function createInvoice() {
       const invoiceId = 'INV-' + Date.now();
-      const invoiceDate = new Date().toLocaleDateString(state.lang === 'ar' ? 'ar-SA' : 'en-US');
+      const invoiceDate = new Date().toLocaleDateString('ar-SA');
       
       let total = 0;
       state.cart.forEach(item => {
         total += Number(item.price);
       });
       
-      if (state.appliedCoupon && state.discount > 0) {
-        total = total - (total * state.discount);
+      // تطبيق الخصم التلقائي
+      let autoDiscount = 0;
+      if (state.cart.length >= 3) {
+        autoDiscount = 0.2;
+      } else if (state.cart.length >= 2) {
+        autoDiscount = 0.1;
+      }
+      
+      let finalDiscount = state.discount;
+      if (autoDiscount > state.discount) {
+        finalDiscount = autoDiscount;
+      }
+      
+      if (finalDiscount > 0) {
+        total = total - (total * finalDiscount);
       }
       
       const invoice = {
@@ -916,8 +959,8 @@
         },
         items: [...state.cart],
         total: total,
-        discount: state.appliedCoupon ? state.discount * 100 : 0,
-        coupon: state.appliedCoupon || (state.lang === 'ar' ? 'لا يوجد' : 'None')
+        discount: state.appliedCoupon ? state.discount * 100 : autoDiscount * 100,
+        coupon: state.appliedCoupon || (autoDiscount > 0 ? 'خصم تلقائي' : 'لا يوجد')
       };
       
       state.orders.push(invoice);
@@ -936,8 +979,108 @@
       console.log('إرسال نسخة إلى: alipoq1@outlook.sa');
       console.log('فاتورة:', invoice);
       
+      // إرسال رسالة ترحيبية للمستخدم الجديد (محاكاة)
+      if (state.user.isNew) {
+        console.log('إرسال رسالة ترحيبية إلى:', state.user.email);
+        state.user.isNew = false;
+        saveUser();
+      }
+      
       // محاكاة إرسال البريد الإلكتروني
-      toast(state.lang === 'ar' ? 'تم إرسال الفاتورة إلى بريدك الإلكتروني' : 'Invoice sent to your email');
+      toast('تم إرسال الفاتورة إلى بريدك الإلكتروني');
+    }
+
+    // عرض ملف المستخدم
+    function renderUserProfile() {
+      const profileEl = document.getElementById('userProfile');
+      const ordersListEl = document.getElementById('ordersList');
+      
+      if (state.user) {
+        profileEl.innerHTML = `
+          <h4 data-i18n="personalInfo">المعلومات الشخصية</h4>
+          <p><strong data-i18n="name">الاسم:</strong> ${state.user.name}</p>
+          <p><strong data-i18n="email">الإيميل:</strong> ${state.user.email}</p>
+          <button class="btn ghost" id="changePassword" style="margin-top: 10px;" data-i18n="changePassword">تغيير كلمة المرور</button>
+        `;
+        
+        // إضافة مستمع لزر تغيير كلمة المرور
+        document.getElementById('changePassword').addEventListener('click', () => {
+          openChangePasswordModal();
+        });
+      }
+      
+      // عرض الطلبات
+      if (state.orders.length > 0) {
+        ordersListEl.innerHTML = '';
+        state.orders.forEach(order => {
+          const orderEl = document.createElement('div');
+          orderEl.className = 'order-item';
+          orderEl.innerHTML = `
+            <div class="order-header">
+              <strong>${order.id}</strong>
+              <span class="order-date">${order.date}</span>
+            </div>
+            <div class="order-details">
+              <p><strong data-i18n="total">الإجمالي:</strong> $${order.total}</p>
+              <p><strong data-i18n="items">العناصر:</strong> ${order.items.length}</p>
+            </div>
+          `;
+          ordersListEl.appendChild(orderEl);
+        });
+      } else {
+        ordersListEl.innerHTML = '<p class="muted" data-i18n="noOrders">لا توجد طلبات سابقة</p>';
+      }
+      
+      // ترجمة النصوص
+      updateTexts();
+    }
+
+    // فتح نافذة تغيير كلمة المرور
+    function openChangePasswordModal() {
+      const newPassword = prompt('أدخل كلمة المرور الجديدة:');
+      if (newPassword && newPassword.length >= 6) {
+        state.user.password = btoa(newPassword);
+        saveUser();
+        toast('تم تغيير كلمة المرور بنجاح');
+      } else if (newPassword) {
+        toast('كلمة المرور يجب أن تكون 6 أحرف على الأقل');
+      }
+    }
+
+    // Reviews render
+    function renderReviews(){
+      const wrap = document.getElementById('reviewsList');
+      wrap.innerHTML = '';
+      if(state.reviews.length===0){
+        const empty = document.createElement('div');
+        empty.className='muted';
+        empty.textContent = state.lang === 'ar' ? 'لا توجد تقييمات بعد — كن أول المقيّمين!' : 'No reviews yet — be the first to review!';
+        empty.style.gridColumn = '1 / -1';
+        empty.style.textAlign = 'center';
+        empty.style.padding = '40px';
+        wrap.appendChild(empty);
+        return;
+      }
+      state.reviews.forEach(r=>{
+        const card = document.createElement('div');
+        card.className = 'card review';
+        const stars = '★'.repeat(r.stars) + '☆'.repeat(5-r.stars);
+        
+        card.innerHTML = `
+          <div class="info">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
+              <div><strong>${stars}</strong></div>
+              <span class="muted">${new Date(r.id).toLocaleDateString()}</span>
+            </div>
+            <p style="margin:8px 0">${r.text}</p>
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-top:12px;">
+              <div class="muted" style="font-size:.9rem">${r.items}</div>
+              <div class="muted" style="font-size:.85rem">- ${r.user}</div>
+            </div>
+          </div>
+        `;
+        wrap.appendChild(card);
+      });
     }
 
     // Login modal
@@ -948,12 +1091,7 @@
     function openLoginModal(){ loginModal.classList.add('active'); }
     function closeLoginModal(){ loginModal.classList.remove('active'); }
     
-    submitLogin.addEventListener('click', () => {
-      if (!securityCheck()) {
-        toast(state.lang === 'ar' ? 'تم حظرك مؤقتًا بسبب كثرة المحاولات' : 'You are temporarily blocked due to too many attempts');
-        return;
-      }
-      
+    submitLogin.addEventListener('click', ()=>{
       const name = document.querySelector('#loginName').value.trim();
       const email = document.querySelector('#loginEmail').value.trim();
       const password = document.querySelector('#loginPassword').value;
@@ -973,8 +1111,8 @@
       }
       
       // التحقق من قوة كلمة المرور
-      if (password.length < 8) {
-        toast(state.lang === 'ar' ? 'كلمة المرور يجب أن تكون 8 أحرف على الأقل' : 'Password must be at least 8 characters');
+      if (password.length < 6) {
+        toast(state.lang === 'ar' ? 'كلمة المرور يجب أن تكون 6 أحرف على الأقل' : 'Password must be at least 6 characters long');
         return;
       }
       
@@ -985,18 +1123,23 @@
         return;
       }
       
-      if(name.length < 2){
+      if(name.length<2){
         toast(state.lang === 'ar' ? 'أدخل اسمًا صحيحًا' : 'Please enter a valid name');
         return;
       }
       
-      // تشفير كلمة المرور
-      const passwordHash = btoa(password + 'pixelDropSalt2025');
-      
-      state.user = { name, email, password: passwordHash }; 
+      state.user = { 
+        name, 
+        email, 
+        password: btoa(password),
+        isNew: true // علامة للمستخدم الجديد لإرسال رسالة ترحيب
+      }; 
       saveUser();
       closeLoginModal();
-      toast(state.lang === 'ar' ? 'تم تسجيل الدخول بنجاح' : 'Successfully signed up');
+      toast(state.lang === 'ar' ? 'تم تسجيل الدخول بنجاح' : 'Logged in successfully');
+      
+      // إرسال رسالة ترحيب (محاكاة)
+      sendWelcomeEmail(email, name);
       
       // إذا كانت السلة مفتوحة، أعد تحميلها
       if (drawer.classList.contains('active')) {
@@ -1004,34 +1147,20 @@
       }
     });
     
-    cancelLogin.addEventListener('click', () => { closeLoginModal(); });
+    cancelLogin.addEventListener('click', ()=>{ closeLoginModal(); });
+
+    // إرسال رسالة ترحيب
+    function sendWelcomeEmail(email, name) {
+      // في التطبيق الحقيقي، هنا نستخدم خدمة إرسال البريد الإلكتروني
+      console.log(`إرسال رسالة ترحيب إلى: ${email}`);
+      console.log(`مرحباً ${name}، شكراً لتسجيلك في PixelDrop!`);
+      console.log(`نسخة إلى: alipoq1@outlook.sa`);
+    }
 
     // Theme toggle
     document.getElementById('toggleTheme').addEventListener('click', () => {
       state.theme = state.theme === 'dark' ? 'light' : 'dark';
       applyTheme();
-    });
-
-    // Language toggle
-    document.getElementById('toggleLang').addEventListener('click', () => {
-      const newLang = state.lang === 'ar' ? 'en' : 'ar';
-      applyLanguage(newLang);
-      document.getElementById('toggleLang').textContent = newLang === 'ar' ? 'EN / AR' : 'AR / EN';
-    });
-
-    // Simulation mode toggle
-    document.getElementById('toggleSimulation').addEventListener('click', () => {
-      state.simulationMode = !state.simulationMode;
-      localStorage.setItem('simulationMode', state.simulationMode);
-      
-      const simulationButton = document.getElementById('toggleSimulation');
-      simulationButton.textContent = state.simulationMode ? 
-        (state.lang === 'ar' ? 'وضع المحاكاة: تشغيل' : 'Simulation Mode: ON') :
-        (state.lang === 'ar' ? 'وضع المحاكاة: إيقاف' : 'Simulation Mode: OFF');
-      
-      toast(state.lang === 'ar' ? 
-        (state.simulationMode ? 'تم تفعيل وضع المحاكاة' : 'تم إيقاف وضع المحاكاة') :
-        (state.simulationMode ? 'Simulation mode activated' : 'Simulation mode deactivated'));
     });
 
     // تطبيق كوبون الخصم
@@ -1055,16 +1184,406 @@
       }
       
       // محاكاة حفظ البريد الإلكتروني
-      let subscribers = loadEncrypted('newsletterSubscribers');
+      let subscribers = JSON.parse(localStorage.getItem('newsletterSubscribers') || '[]');
       if (!subscribers.includes(email)) {
         subscribers.push(email);
-        const encrypted = btoa(JSON.stringify(subscribers));
-        localStorage.setItem('newsletterSubscribers', encrypted);
+        localStorage.setItem('newsletterSubscribers', JSON.stringify(subscribers));
       }
       
       document.getElementById('newsletterEmail').value = '';
       toast(state.lang === 'ar' ? 'شكراً للاشتراك في النشرة البريدية!' : 'Thank you for subscribing to our newsletter!');
     });
+
+    // تسجيل الخروج
+    document.getElementById('logoutBtn').addEventListener('click', () => {
+      state.user = null;
+      saveUser();
+      userDrawer.classList.remove('active');
+      toast(state.lang === 'ar' ? 'تم تسجيل الخروج بنجاح' : 'Logged out successfully');
+    });
+
+    // تحميل المنتج المجاني
+    document.getElementById('downloadFree').addEventListener('click', () => {
+      // محاكاة تحميل ملف
+      toast(state.lang === 'ar' ? 'جاري تحميل المنتج المجاني...' : 'Downloading free product...');
+      
+      // إنشاء رابط تحميل وهمي
+      setTimeout(() => {
+        const link = document.createElement('a');
+        link.href = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64"><rect width="64" height="64" fill="%2312131a"/><rect x="16" y="16" width="32" height="32" fill="%236ee7ff"/></svg>';
+        link.download = 'free_pixel_art.svg';
+        link.click();
+        
+        toast(state.lang === 'ar' ? 'تم التحميل بنجاح! نأمل أن يعجبك' : 'Download completed! We hope you like it');
+      }, 1000);
+    });
+
+    // تصفية معرض الأعمال
+    function setupPortfolioFilter() {
+      const categories = document.querySelectorAll('.portfolio-category');
+      categories.forEach(category => {
+        category.addEventListener('click', () => {
+          // إزالة النشاط من جميع الأزرار
+          categories.forEach(c => c.classList.remove('active'));
+          // إضافة النشاط للزر المختار
+          category.classList.add('active');
+          
+          // تصفية العناصر
+          const selectedCategory = category.getAttribute('data-category');
+          filterPortfolioItems(selectedCategory);
+        });
+      });
+    }
+
+    // تصفية عناصر المعرض
+    function filterPortfolioItems(category) {
+      const portfolioGrid = document.getElementById('portfolioGrid');
+      portfolioGrid.innerHTML = '';
+      
+      let filteredItems = state.portfolioItems;
+      if (category !== 'all') {
+        filteredItems = state.portfolioItems.filter(item => item.category === category);
+      }
+      
+      filteredItems.forEach(item => {
+        const card = document.createElement('article');
+        card.className = 'card product available-product';
+        card.setAttribute('data-id', item.id);
+        card.setAttribute('data-name-ar', item.nameAr);
+        card.setAttribute('data-name-en', item.nameEn);
+        card.setAttribute('data-price', item.price);
+        
+        card.innerHTML = `
+          <div class="info">
+            <h3 class="name">${state.lang === 'ar' ? item.nameAr : item.nameEn}</h3>
+            <p class="desc">${state.lang === 'ar' ? item.descAr : item.descEn}</p>
+          </div>
+          <div class="buy">
+            <span class="price">$${item.price}</span>
+            <button class="btn add" type="button" data-i18n="addToCart">أضف للسلة</button>
+            <button class="btn ghost" type="button" data-i18n="requestSimilar">اطلب تصميم مشابه</button>
+          </div>
+        `;
+        
+        portfolioGrid.appendChild(card);
+      });
+      
+      // إعادة إرفاق مستمعي الأحداث للأزرار الجديدة
+      document.querySelectorAll('#portfolioGrid .add').forEach(btn => {
+        btn.addEventListener('click', function(e) {
+          if (!state.user) {
+            openLoginModal();
+            return;
+          }
+          
+          const card = e.target.closest('.product');
+          const item = {
+            id: card.getAttribute('data-id'),
+            name: state.lang === 'ar' ? card.getAttribute('data-name-ar') : card.getAttribute('data-name-en'),
+            price: card.getAttribute('data-price')
+          };
+          state.cart.push(item); 
+          saveCart(); 
+          renderCart();
+          
+          e.target.classList.add('add-to-cart-animation');
+          setTimeout(() => {
+            e.target.classList.remove('add-to-cart-animation');
+          }, 500);
+          
+          document.getElementById('cartCount').textContent = state.cart.length;
+          toast(state.lang === 'ar' ? 'تمت الإضافة للسلة' : 'Added to cart');
+        });
+      });
+      
+      document.querySelectorAll('#portfolioGrid .ghost').forEach(btn => {
+        btn.addEventListener('click', function() {
+          document.querySelector('#custom-order').scrollIntoView({ behavior: 'smooth' });
+        });
+      });
+    }
+
+    // إعداد نموذج الطلب المخصص
+    function setupCustomOrderForm() {
+      document.getElementById('customOrderForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        if (!state.user) {
+          openLoginModal();
+          return;
+        }
+        
+        toast(state.lang === 'ar' ? 'تم إرسال طلبك بنجاح! سنتواصل معك قريباً' : 'Your request has been sent successfully! We will contact you soon');
+        this.reset();
+      });
+    }
+
+    // التحقق من قوة كلمة المرور
+    function setupPasswordStrength() {
+      const passwordInput = document.getElementById('loginPassword');
+      const strengthBar = document.getElementById('passwordStrength');
+      
+      passwordInput.addEventListener('input', function() {
+        const password = this.value;
+        let strength = 0;
+        
+        if (password.length >= 6) strength += 1;
+        if (password.length >= 8) strength += 1;
+        if (/[A-Z]/.test(password)) strength += 1;
+        if (/[0-9]/.test(password)) strength += 1;
+        if (/[^A-Za-z0-9]/.test(password)) strength += 1;
+        
+        strengthBar.className = 'password-strength';
+        if (password.length === 0) {
+          strengthBar.style.width = '0';
+        } else if (strength <= 2) {
+          strengthBar.className += ' password-weak';
+        } else if (strength <= 4) {
+          strengthBar.className += ' password-medium';
+        } else {
+          strengthBar.className += ' password-strong';
+        }
+      });
+    }
+
+    // التبديل بين اللغات
+    document.getElementById('toggleLang').addEventListener('click', () => {
+      state.lang = state.lang === 'ar' ? 'en' : 'ar';
+      localStorage.setItem('lang', state.lang);
+      updateTexts();
+      filterPortfolioItems('all'); // إعادة تحميل المعرض باللغة الجديدة
+    });
+
+    // ترجمة النصوص
+    function updateTexts() {
+      const translations = {
+        ar: {
+          home: 'الرئيسية',
+          portfolio: 'معرض الأعمال',
+          bundles: 'الباقات',
+          customOrder: 'طلب تصميم',
+          reviews: 'التقييمات',
+          faq: 'الأسئلة',
+          account: 'حسابي',
+          cart: 'السلة',
+          heroTitle: 'فن بكسل عصري، سريع، وبأسعار رمزية',
+          heroDesc: 'اختيارات جاهزة من 1$ إلى 5$ مع انتقالات سلسة وتجربة مستخدم 2025.',
+          browseWorks: 'تصفح الأعمال',
+          premiumBundles: 'الباقات المميزة',
+          instantDelivery: 'تسليم فوري',
+          commercialRights: 'حقوق استخدام تجارية',
+          satisfactionGuarantee: 'ضمان رضا',
+          portfolioTitle: 'معرض الأعمال',
+          portfolioDesc: 'تصفح مجموعة من أعمالي السابقة في فن البكسل واختر ما يناسب مشروعك.',
+          all: 'الكل',
+          characters: 'شخصيات',
+          backgrounds: 'خلفيات',
+          icons: 'أيقونات',
+          items: 'عناصر',
+          featuredTitle: 'أعمال مختارة',
+          featuredDesc: 'منتجات جاهزة بأسعار من 1$ إلى 5$ — اشتري مباشرة واستلم فورًا.',
+          addToCart: 'أضف للسلة',
+          freeProductTitle: 'صورة مجانية للتجربة',
+          freeProductDesc: 'حمّل هذه الصورة مجانًا، وإذا أعجبتك اطلب المزيد!',
+          free: 'مجاني',
+          download: 'تحميل',
+          soon: 'قريبًا',
+          bundlesTitle: 'الباقات المميزة',
+          bundlesDesc: 'وفّر أكثر مع باقات مجمعة بأسعار رمزية.',
+          customOrderTitle: 'اطلب تصميم خاص',
+          customOrderDesc: 'أخبرنا بمتطلباتك وسنصمم لك ما تريد.',
+          designType: 'نوع التصميم',
+          selectOption: 'اختر...',
+          characterDesign: 'تصميم شخصية',
+          backgroundDesign: 'تصميم خلفية',
+          iconDesign: 'تصميم أيقونة',
+          itemDesign: 'تصميم عنصر',
+          preferredColors: 'الألوان المطلوبة',
+          size: 'الحجم',
+          customSize: 'مقاس مخصص',
+          expectedPrice: 'السعر المتوقع ($)',
+          additionalDetails: 'تفاصيل إضافية',
+          sendRequest: 'إرسال الطلب',
+          reviewsTitle: 'التقييمات',
+          reviewsDesc: 'كل تقييم يظهر تلقائيًا بعد الشراء.',
+          faqTitle: 'الأسئلة الشائعة',
+          faq1Question: 'كيف تتم عملية التسليم؟',
+          faq1Answer: 'بعد الدفع، تحصل على رابط التحميل فورًا داخل الموقع، ومعه الإيميل إن رغبت.',
+          faq2Question: 'هل الأسعار ثابتة؟',
+          faq2Answer: 'نعم، بين 1$ و5$ حسب المنتج أو الباقة. أحيانًا نضيف خصم رمضاني أو موسمي.',
+          faq3Question: 'ما حقوق الاستخدام؟',
+          faq3Answer: 'يسمح بالاستخدام التجاري في الألعاب والمشاريع مع منع إعادة البيع كأصول مستقلة.',
+          faq4Question: 'هل يمكنني إعادة بيع الصور؟',
+          faq4Answer: 'لا، لا يمكن إعادة بيع الصور كأصول مستقلة، ولكن يمكن استخدامها في مشاريعك وألعابك.',
+          faq5Question: 'هل هناك ضمان استرجاع؟',
+          faq5Answer: 'نعم، في حال وجود مشكلة في المنتج يمكنك طلب استرجاع خلال 7 أيام.',
+          policyTitle: 'سياسة الاستخدام',
+          usageRights: 'حقوق الاستخدام',
+          usageRightsText: 'جميع الصور المباعة في PixelDrop تأتي مع ترخيص استخدام تجاري يسمح لك باستخدامها في مشاريعك الشخصية والتجارية، بما في ذلك الألعاب والتطبيقات والمواقع الإلكترونية. ومع ذلك، لا يسمح لك بإعادة بيع هذه الصور كأصول مستقلة أو كجزء من حزمة أصول.',
+          refundPolicy: 'سياسة الاسترجاع',
+          refundPolicyText: 'نحن نضمن رضاكم عن منتجاتنا. في حال وجود أي مشكلة في المنتج الذي اشتريتموه، يمكنكم طلب استرجاع خلال 7 أيام من تاريخ الشراء. يرجى التواصل معنا عبر البريد الإلكتروني alipoq1@outlook.sa لمعالجة طلبكم.',
+          privacyPolicy: 'سياسة الخصوصية',
+          privacyPolicyText: 'نحن نحترم خصوصيتكم ولا نشارك معلوماتكم الشخصية مع أي طرف ثالث. نستخدم بريدكم الإلكتروني فقط لإرسال روابط التحميل والتحديثات المتعلقة بمنتجاتكم.',
+          footerDesc: 'متجر فن بكسل عصري يقدم أصول ألعاب بأسعار رمزية وجودة عالية.',
+          quickLinks: 'روابط سريعة',
+          support: 'الدعم',
+          newsletter: 'النشرة البريدية',
+          newsletterDesc: 'اشترك لتصلك آخر التحديثات والعروض.',
+          emailPlaceholder: 'بريدك الإلكتروني',
+          subscribe: 'اشتراك',
+          madeBy: 'صُمّم بواسطة شاب عمره 16 سنة — أول تجربة له',
+          yourCart: 'سلتك',
+          couponPlaceholder: 'كود الخصم',
+          apply: 'تطبيق',
+          total: 'الإجمالي',
+          discount: 'الخصم',
+          finalTotal: 'المجموع النهائي',
+          paymentMethod: 'طريقة الدفع:',
+          checkout: 'إتمام الشراء',
+          myAccount: 'حسابي',
+          myOrders: 'طلباتي',
+          logout: 'تسجيل الخروج',
+          personalInfo: 'المعلومات الشخصية',
+          name: 'الاسم',
+          email: 'الإيميل',
+          changePassword: 'تغيير كلمة المرور',
+          noOrders: 'لا توجد طلبات سابقة',
+          items: 'العناصر',
+          loginRegister: 'سجّل الدخول / إنشاء حساب',
+          password: 'كلمة المرور',
+          confirmPassword: 'تأكيد كلمة المرور',
+          emailUsage: 'نستخدم الإيميل لإرسال رابط التحميل بعد التقييم.',
+          cancel: 'إلغاء',
+          requestSimilar: 'اطلب تصميم مشابه',
+          contactUs: 'اتصل بنا'
+        },
+        en: {
+          home: 'Home',
+          portfolio: 'Portfolio',
+          bundles: 'Bundles',
+          customOrder: 'Custom Order',
+          reviews: 'Reviews',
+          faq: 'FAQ',
+          account: 'My Account',
+          cart: 'Cart',
+          heroTitle: 'Modern, Fast, and Affordable Pixel Art',
+          heroDesc: 'Ready-made choices from $1 to $5 with smooth transitions and 2025 user experience.',
+          browseWorks: 'Browse Works',
+          premiumBundles: 'Premium Bundles',
+          instantDelivery: 'Instant Delivery',
+          commercialRights: 'Commercial Rights',
+          satisfactionGuarantee: 'Satisfaction Guarantee',
+          portfolioTitle: 'Portfolio',
+          portfolioDesc: 'Browse a collection of my previous pixel art works and choose what suits your project.',
+          all: 'All',
+          characters: 'Characters',
+          backgrounds: 'Backgrounds',
+          icons: 'Icons',
+          items: 'Items',
+          featuredTitle: 'Featured Works',
+          featuredDesc: 'Ready products from $1 to $5 — buy directly and receive instantly.',
+          addToCart: 'Add to Cart',
+          freeProductTitle: 'Free Sample Image',
+          freeProductDesc: 'Download this image for free, and if you like it, order more!',
+          free: 'Free',
+          download: 'Download',
+          soon: 'Coming Soon',
+          bundlesTitle: 'Premium Bundles',
+          bundlesDesc: 'Save more with bundled packages at symbolic prices.',
+          customOrderTitle: 'Request Custom Design',
+          customOrderDesc: 'Tell us your requirements and we will design what you want.',
+          designType: 'Design Type',
+          selectOption: 'Select...',
+          characterDesign: 'Character Design',
+          backgroundDesign: 'Background Design',
+          iconDesign: 'Icon Design',
+          itemDesign: 'Item Design',
+          preferredColors: 'Preferred Colors',
+          size: 'Size',
+          customSize: 'Custom Size',
+          expectedPrice: 'Expected Price ($)',
+          additionalDetails: 'Additional Details',
+          sendRequest: 'Send Request',
+          reviewsTitle: 'Reviews',
+          reviewsDesc: 'Each review appears automatically after purchase.',
+          faqTitle: 'Frequently Asked Questions',
+          faq1Question: 'How does the delivery process work?',
+          faq1Answer: 'After payment, you get the download link immediately on the website, and by email if you wish.',
+          faq2Question: 'Are prices fixed?',
+          faq2Answer: 'Yes, between $1 and $5 depending on the product or bundle. Sometimes we add Ramadan or seasonal discounts.',
+          faq3Question: 'What are the usage rights?',
+          faq3Answer: 'Commercial use is allowed in games and projects, but reselling as standalone assets is prohibited.',
+          faq4Question: 'Can I resell the images?',
+          faq4Answer: 'No, you cannot resell the images as standalone assets, but you can use them in your projects and games.',
+          faq5Question: 'Is there a refund guarantee?',
+          faq5Answer: 'Yes, if there is a problem with the product, you can request a refund within 7 days.',
+          policyTitle: 'Usage Policy',
+          usageRights: 'Usage Rights',
+          usageRightsText: 'All images sold at PixelDrop come with a commercial use license that allows you to use them in your personal and commercial projects, including games, applications, and websites. However, you are not allowed to resell these images as standalone assets or as part of an asset pack.',
+          refundPolicy: 'Refund Policy',
+          refundPolicyText: 'We guarantee your satisfaction with our products. If there is any problem with the product you purchased, you can request a refund within 7 days of the purchase date. Please contact us via email alipoq1@outlook.sa to process your request.',
+          privacyPolicy: 'Privacy Policy',
+          privacyPolicyText: 'We respect your privacy and do not share your personal information with any third party. We use your email only to send download links and updates related to your products.',
+          footerDesc: 'Modern pixel art store offering game assets at symbolic prices and high quality.',
+          quickLinks: 'Quick Links',
+          support: 'Support',
+          newsletter: 'Newsletter',
+          newsletterDesc: 'Subscribe to receive the latest updates and offers.',
+          emailPlaceholder: 'Your Email',
+          subscribe: 'Subscribe',
+          madeBy: 'Designed by a 16-year-old — his first experience',
+          yourCart: 'Your Cart',
+          couponPlaceholder: 'Coupon Code',
+          apply: 'Apply',
+          total: 'Total',
+          discount: 'Discount',
+          finalTotal: 'Final Total',
+          paymentMethod: 'Payment Method:',
+          checkout: 'Checkout',
+          myAccount: 'My Account',
+          myOrders: 'My Orders',
+          logout: 'Logout',
+          personalInfo: 'Personal Information',
+          name: 'Name',
+          email: 'Email',
+          changePassword: 'Change Password',
+          noOrders: 'No previous orders',
+          items: 'Items',
+          loginRegister: 'Login / Register',
+          password: 'Password',
+          confirmPassword: 'Confirm Password',
+          emailUsage: 'We use email to send download links after review.',
+          cancel: 'Cancel',
+          requestSimilar: 'Request Similar Design',
+          contactUs: 'Contact Us'
+        }
+      };
+      
+      const currentLang = state.lang;
+      const texts = translations[currentLang];
+      
+      // تحديث النصوص
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (texts[key]) {
+          el.textContent = texts[key];
+        }
+      });
+      
+      // تحديث النصوص في العناصر الخاصة
+      document.getElementById('toggleLang').textContent = currentLang === 'ar' ? 'EN / AR' : 'AR / EN';
+      document.getElementById('topbar-text').textContent = currentLang === 'ar' 
+        ? 'أسعار رمزية تبدأ من 1$ • تحديثات مستمرة • تسليم فوري' 
+        : 'Symbolic prices starting from $1 • Continuous updates • Instant delivery';
+      
+      // تحديث النصوص في العناصر ذات data-i18n-placeholder
+      document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+        const key = el.getAttribute('data-i18n-placeholder');
+        if (texts[key]) {
+          el.setAttribute('placeholder', texts[key]);
+        }
+      });
+    }
 
     // Space background
     (function spaceBG(){
@@ -1079,7 +1598,7 @@
       resize(); 
       window.addEventListener('resize', resize);
 
-      const stars = Array.from({length:240}, () => ({
+      const stars = Array.from({length:240}, ()=>({
         x: Math.random()*c.width,
         y: Math.random()*c.height,
         r: Math.random()*1.6 + 0.4,
@@ -1110,7 +1629,7 @@
         ctx.fillStyle = g; 
         ctx.fillRect(0,0,c.width,c.height);
 
-        stars.forEach(s => {
+        stars.forEach(s=>{
           s.a += s.tw; 
           const alpha = 0.5 + Math.sin(s.a)*0.5;
           ctx.fillStyle = `rgba(255,255,255,${alpha})`;
@@ -1125,7 +1644,7 @@
           ctx.fillRect(x, y, Math.random()*2, Math.random()*2);
         }
 
-        meteors.forEach(m => {
+        meteors.forEach(m=>{
           ctx.strokeStyle = 'rgba(255,255,255,0.7)';
           ctx.lineWidth = 2;
           ctx.beginPath();
@@ -1137,7 +1656,7 @@
           m.life--;
         });
         
-        meteors = meteors.filter(m => m.life>0 && m.x>-100 && m.x<c.width+100 && m.y<c.height+100);
+        meteors = meteors.filter(m=>m.life>0 && m.x>-100 && m.x<c.width+100 && m.y<c.height+100);
         spawnMeteor();
         requestAnimationFrame(draw);
       }
@@ -1147,24 +1666,13 @@
 
     // Init
     applyTheme();
-    applyLanguage(state.lang);
-    document.getElementById('toggleLang').textContent = state.lang === 'ar' ? 'EN / AR' : 'AR / EN';
-    
-    // تحديث زر المحاكاة حسب الحالة
-    const simulationButton = document.getElementById('toggleSimulation');
-    if (simulationButton) {
-      simulationButton.textContent = state.simulationMode ? 
-        (state.lang === 'ar' ? 'وضع المحاكاة: تشغيل' : 'Simulation Mode: ON') :
-        (state.lang === 'ar' ? 'وضع المحاكاة: إيقاف' : 'Simulation Mode: OFF');
-    }
-    
-    // تحميل البيانات المشفرة
-    state.cart = loadEncrypted('cart');
-    state.reviews = loadEncrypted('reviews');
-    state.user = loadEncrypted('user');
-    state.orders = loadEncrypted('orders');
-    
     renderCart();
+    renderReviews();
+    setupPortfolioFilter();
+    filterPortfolioItems('all');
+    setupCustomOrderForm();
+    setupPasswordStrength();
+    updateTexts();
     
     // إضافة مستمع لشريط التقدم
     window.onscroll = function() { updateProgressBar() };
