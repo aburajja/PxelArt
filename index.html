@@ -168,10 +168,6 @@
     .thank-you { text-align: center; padding: 60px 20px; max-width: 600px; margin: 0 auto; }
     .thank-you h1 { font-size: 2.5rem; margin-bottom: 20px; color: var(--accent); }
     .thank-you p { margin-bottom: 30px; color: var(--muted); font-size: 1.1rem; }
-    .download-links { background: var(--card); border-radius: var(--radius); padding: 25px; margin: 30px 0; border: 1px solid rgba(255,255,255,.1); }
-    .download-links h3 { margin-bottom: 15px; }
-    .download-item { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,.06); }
-    .download-item:last-child { border-bottom: none; }
     
     /* Loading Animation */
     .loading { display: inline-block; width: 20px; height: 20px; border: 3px solid rgba(255,255,255,.3); border-radius: 50%; border-top-color: var(--accent); animation: spin 1s ease-in-out infinite; }
@@ -318,6 +314,29 @@
       margin-top: 15px; 
       padding-top: 15px; 
       border-top: 1px solid rgba(255,255,255,.1); 
+    }
+    
+    .payment-status { 
+      text-align: center; 
+      padding: 20px; 
+      border-radius: var(--radius); 
+      margin: 20px 0; 
+    }
+    .payment-success { 
+      background: rgba(111, 255, 171, 0.1); 
+      border: 1px solid var(--ok); 
+    }
+    .payment-cancelled { 
+      background: rgba(255, 110, 135, 0.1); 
+      border: 1px solid var(--danger); 
+    }
+    .contact-message {
+      background: rgba(110, 231, 255, 0.1);
+      border: 1px solid var(--accent);
+      padding: 20px;
+      border-radius: var(--radius);
+      text-align: center;
+      margin: 20px 0;
     }
   </style>
 </head>
@@ -661,33 +680,17 @@
     </div>
   </div>
 
-  <!-- Mandatory Review Modal -->
-  <div class="modal" id="reviewModal" aria-hidden="true">
+  <!-- Payment Status Modal -->
+  <div class="modal" id="paymentStatusModal" aria-hidden="true">
     <div class="modal-content">
       <div class="modal-head">
-        <h3>قيّم تجربتك</h3>
+        <h3 id="paymentStatusTitle">حالة الدفع</h3>
       </div>
       <div class="modal-body">
-        <div class="stars" id="starRating" aria-label="Rating">
-          <button aria-label="1" type="button">★</button>
-          <button aria-label="2" type="button">★</button>
-          <button aria-label="3" type="button">★</button>
-          <button aria-label="4" type="button">★</button>
-          <button aria-label="5" type="button">★</button>
-        </div>
-        <div class="emojis" id="emojiRating">
-          <button aria-label="سيء" type="button">😞</button>
-          <button aria-label="ليس جيد" type="button">😐</button>
-          <button aria-label="جيد" type="button">🙂</button>
-          <button aria-label="جيد جدًا" type="button">😊</button>
-          <button aria-label="ممتاز" type="button">😍</button>
-        </div>
-        <textarea id="reviewText" rows="4" placeholder="اكتب تعليقك هنا"></textarea>
-        <div class="modal-note">التقييم إجباري لإكمال التحميل.</div>
+        <div id="paymentStatusContent"></div>
       </div>
       <div class="modal-foot">
-        <button class="btn ghost" id="cancelReview" type="button">إلغاء</button>
-        <button class="btn primary" id="submitReview" type="button">إرسال التقييم</button>
+        <button class="btn primary" id="closePaymentStatus" type="button">حسناً</button>
       </div>
     </div>
   </div>
@@ -701,7 +704,7 @@
       <div class="modal-body">
         <div class="thank-you">
           <h1>شكراً لك!</h1>
-          <p>تمت عملية الشراء بنجاح. يمكنك الآن تحميل منتجاتك.</p>
+          <p>تم استلام طلبك بنجاح. سنتواصل معك في أقرب وقت لتأكيد الطلب وإرسال المنتج.</p>
           
           <!-- الفاتورة -->
           <div class="invoice">
@@ -734,11 +737,12 @@
             </div>
           </div>
           
-          <div class="download-links">
-            <h3>روابط التحميل:</h3>
-            <div id="downloadLinksList"></div>
+          <div class="contact-message">
+            <h3>🎉 تم استلام طلبك!</h3>
+            <p>سنقوم بالتواصل معك على بريدك الإلكتروني خلال 24 ساعة لتأكيد الطلب وإرسال المنتج.</p>
+            <p>شكراً لثقتك بنا!</p>
           </div>
-          <p>تم إرسال الفاتورة وروابط التحميل أيضًا إلى بريدك الإلكتروني.</p>
+          
           <button class="btn primary" id="closeThankYou" type="button">متابعة التسوق</button>
         </div>
       </div>
@@ -763,8 +767,56 @@
       payMethod: 'paypal',
       appliedCoupon: null,
       discount: 0,
-      orders: JSON.parse(localStorage.getItem('orders') || '[]')
+      orders: JSON.parse(localStorage.getItem('orders') || '[]'),
+      paymentInProgress: false
     };
+
+    // التحقق من حالة الدفع عند تحميل الصفحة
+    function checkPaymentStatus() {
+      const urlParams = new URLSearchParams(window.location.search);
+      const paymentStatus = urlParams.get('payment');
+      
+      if (paymentStatus === 'cancelled') {
+        showPaymentStatus('cancelled', 'لم يتم اكتمال عملية الدفع. إذا كنت تواجه مشكلة، يرجى المحاولة مرة أخرى أو التواصل مع الدعم.');
+      } else if (paymentStatus === 'success') {
+        // في حالة نجاح الدفع (للتطوير فقط)
+        showPaymentStatus('success', 'تم الدفع بنجاح! سنتواصل معك قريباً.');
+      }
+      
+      // إزالة معلمات URL بعد المعالجة
+      if (paymentStatus) {
+        const newUrl = window.location.pathname;
+        window.history.replaceState({}, document.title, newUrl);
+      }
+    }
+
+    // عرض حالة الدفع
+    function showPaymentStatus(status, message) {
+      const modal = document.getElementById('paymentStatusModal');
+      const title = document.getElementById('paymentStatusTitle');
+      const content = document.getElementById('paymentStatusContent');
+      
+      if (status === 'cancelled') {
+        title.textContent = 'عملية الدفع لم تكتمل';
+        content.innerHTML = `
+          <div class="payment-status payment-cancelled">
+            <h3>❌ لم يتم اكتمال الدفع</h3>
+            <p>${message}</p>
+            <p>إذا كنت بحاجة إلى مساعدة، يرجى التواصل مع الدعم.</p>
+          </div>
+        `;
+      } else if (status === 'success') {
+        title.textContent = 'تم الدفع بنجاح';
+        content.innerHTML = `
+          <div class="payment-status payment-success">
+            <h3>✅ تم الدفع بنجاح</h3>
+            <p>${message}</p>
+          </div>
+        `;
+      }
+      
+      modal.classList.add('active');
+    }
 
     // تطبيق السمة
     function applyTheme() {
@@ -959,32 +1011,25 @@
       
       const first = state.cart[0];
       const payUrl = first.payPayPal;
+      
       if(payUrl && payUrl.startsWith('https')){
-        state.pendingOrder = [...state.cart];
+        state.paymentInProgress = true;
         
-        // محاكاة عملية الدفع الناجحة
-        simulatePaymentSuccess();
+        // الانتقال إلى صفحة الدفع في PayPal
+        window.open(payUrl, '_blank');
+        
+        // إظهار رسالة للمستخدم
+        toast('يتم الآن تحويلك إلى PayPal لإكمال عملية الدفع...');
+        
+        // مراقبة حالة الدفع (محاكاة)
+        setTimeout(() => {
+          checkPaymentStatus();
+        }, 3000);
+        
       } else {
         alert('أضف رابط الدفع الصحيح (PayPal)');
       }
     });
-
-    // محاكاة عملية الدفع الناجحة
-    function simulatePaymentSuccess() {
-      // إخفاء سلة التسوق
-      drawer.classList.remove('active');
-      
-      // إنشاء فاتورة
-      createInvoice();
-      
-      // عرض صفحة الشكر
-      showThankYouPage();
-      
-      // مسح السلة بعد الدفع
-      state.cart = [];
-      saveCart();
-      renderCart();
-    }
 
     // إنشاء فاتورة
     function createInvoice() {
@@ -1036,7 +1081,6 @@
     // عرض صفحة الشكر
     function showThankYouPage() {
       const modal = document.getElementById('thankYouModal');
-      const downloadList = document.getElementById('downloadLinksList');
       const invoice = state.orders[state.orders.length - 1];
       
       // تعبئة بيانات الفاتورة
@@ -1059,31 +1103,6 @@
         invoiceItems.appendChild(itemEl);
       });
       
-      // إنشاء روابط التحميل
-      downloadList.innerHTML = '';
-      state.pendingOrder.forEach(item => {
-        const downloadItem = document.createElement('div');
-        downloadItem.className = 'download-item';
-        downloadItem.innerHTML = `
-          <span>${item.name}</span>
-          <a href="#" class="btn primary" data-id="${item.id}">تحميل</a>
-        `;
-        downloadList.appendChild(downloadItem);
-      });
-      
-      // إضافة مستمعي الأحداث لأزرار التحميل
-      downloadList.querySelectorAll('a').forEach(link => {
-        link.addEventListener('click', (e) => {
-          e.preventDefault();
-          const id = e.target.getAttribute('data-id');
-          // محاكاة تحميل الملف
-          toast('جاري التحميل...');
-          setTimeout(() => {
-            toast('تم التحميل بنجاح');
-          }, 1500);
-        });
-      });
-      
       modal.classList.add('active');
     }
 
@@ -1092,85 +1111,9 @@
       document.getElementById('thankYouModal').classList.remove('active');
     });
 
-    // Review modal
-    const reviewModal = document.getElementById('reviewModal');
-    const starsEl = document.getElementById('starRating');
-    const emojisEl = document.getElementById('emojiRating');
-    const reviewText = document.getElementById('reviewText');
-    const submitReview = document.getElementById('submitReview');
-    const cancelReview = document.getElementById('cancelReview');
-
-    function openReviewModal(){ 
-      state.selectedStars = 0; 
-      state.selectedEmoji = null;
-      reviewText.value = ''; 
-      reviewModal.classList.add('active'); 
-      updateStars(0); 
-      updateEmojis(null);
-    }
-    
-    function closeReviewModal(){ reviewModal.classList.remove('active'); }
-
-    starsEl.querySelectorAll('button').forEach((b, idx)=>{
-      b.addEventListener('click', ()=>{ 
-        state.selectedStars = idx+1; 
-        updateStars(state.selectedStars); 
-      });
-    });
-    
-    function updateStars(count){ 
-      starsEl.querySelectorAll('button').forEach((b,i)=>{ 
-        b.classList.toggle('active', i < count); 
-      }); 
-    }
-
-    emojisEl.querySelectorAll('button').forEach((b, idx)=>{
-      b.addEventListener('click', ()=>{ 
-        state.selectedEmoji = idx; 
-        updateEmojis(state.selectedEmoji);
-        // تعيين النجوم بناءً على الإيموجي المختار
-        state.selectedStars = idx + 1;
-        updateStars(state.selectedStars);
-      });
-    });
-    
-    function updateEmojis(selected){ 
-      emojisEl.querySelectorAll('button').forEach((b,i)=>{ 
-        b.classList.toggle('active', i === selected); 
-      }); 
-    }
-
-    submitReview.addEventListener('click', ()=>{
-      const stars = state.selectedStars;
-      const text = reviewText.value.trim();
-      if(stars<1 || text.length<3){
-        toast('اختر النجوم واكتب تعليقًا مختصرًا');
-        return;
-      }
-      const itemsSummary = (state.pendingOrder||state.cart).map(x=>x.name).join(' • ');
-      const review = { 
-        id: Date.now(), 
-        stars, 
-        emoji: state.selectedEmoji,
-        text, 
-        items: itemsSummary, 
-        user: state.user?.name || 'مستخدم'
-      };
-      state.reviews.unshift(review); 
-      saveReviews(); 
-      renderReviews();
-      toast('تم إضافة تقييمك بنجاح');
-      closeReviewModal();
-      
-      // إذا كان هناك طلب معلق، اعرض صفحة الشكر
-      if (state.pendingOrder) {
-        showThankYouPage();
-        state.pendingOrder = null;
-      }
-    });
-
-    cancelReview.addEventListener('click', ()=>{
-      toast('الرجاء إكمال التقييم للتحميل');
+    // إغلاق حالة الدفع
+    document.getElementById('closePaymentStatus').addEventListener('click', () => {
+      document.getElementById('paymentStatusModal').classList.remove('active');
     });
 
     // Reviews render
@@ -1392,6 +1335,7 @@
     applyTheme();
     renderCart();
     renderReviews();
+    checkPaymentStatus();
     
     // إضافة مستمع لشريط التقدم
     window.onscroll = function() { updateProgressBar() };
