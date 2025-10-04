@@ -17,7 +17,6 @@
       --speed: 320ms; --ease: cubic-bezier(.22,.61,.36,1);
     }
     
-    /* متغيرات الوضع النهاري */
     [data-theme="light"] {
       --bg: #f5f7ff; --card: #ffffff; --muted: #6b7280; --text: #1f2937;
       --accent: #3b82f6; --accent2: #8b5cf6; --ok: #10b981; --danger: #ef4444;
@@ -30,10 +29,8 @@
     a { color: inherit; text-decoration: none; }
     .container { max-width: 1100px; margin: 0 auto; padding: 0 16px; }
     
-    /* شريط التقدم */
     #progress-bar { position: fixed; top: 0; left: 0; width: 0%; height: 3px; background: linear-gradient(90deg, var(--accent), var(--accent2)); z-index: 9999; transition: width 0.3s ease; }
     
-    /* تأثيرات البلور والظلال */
     .glass { background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.2); }
     .glow { box-shadow: 0 0 20px rgba(110, 231, 255, 0.3); }
     .pulse { animation: pulse 2s infinite; }
@@ -44,13 +41,11 @@
       100% { box-shadow: 0 0 0 0 rgba(110, 231, 255, 0); }
     }
     
-    /* Topbar */
     .topbar { position: relative; z-index: 100; background: linear-gradient(90deg, rgba(110,231,255,.15), rgba(155,123,255,.15)); backdrop-filter: blur(6px); border-bottom: 1px solid rgba(255,255,255,.06); }
     .topbar .container { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; flex-wrap: wrap; gap: 10px; }
     .chip { padding: 6px 10px; border-radius: 999px; background: rgba(255,255,255,.08); color: var(--text); border: 1px solid rgba(255,255,255,.12); cursor: pointer; transition: transform var(--speed) var(--ease), background var(--speed) var(--ease); font-size: 0.9rem; }
     .chip:hover { transform: translateY(-2px); }
     
-    /* Navbar */
     .navbar { position: sticky; top: 0; z-index: 150; background: rgba(10,11,15,.7); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(255,255,255,.08); transition: all var(--speed) var(--ease); }
     [data-theme="light"] .navbar { background: rgba(255,255,255,.9); }
     .nav-wrap { display: flex; align-items: center; justify-content: space-between; padding: 12px 0; }
@@ -62,7 +57,6 @@
     .cart-btn:hover { transform: translateY(-2px); }
     .cart-count { display: inline-block; background: var(--accent2); color: #fff; border-radius: 999px; padding: 2px 8px; font-size: .85rem; min-width: 24px; text-align: center; }
     
-    /* Hero */
     .hero { position: relative; min-height: 64vh; display: flex; align-items: center; overflow: hidden; }
     #spaceCanvas { position: absolute; inset: 0; z-index: 0; }
     .hero-content { position: relative; z-index: 1; padding: 60px 0; text-align: center; max-width: 800px; margin: 0 auto; }
@@ -71,7 +65,6 @@
     .hero .trust { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; margin-top: 25px; }
     .badge { background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.12); padding: 8px 14px; border-radius: 999px; font-size: 0.9rem; display: flex; align-items: center; gap: 6px; }
     
-    /* Common */
     .btn { border: none; cursor: pointer; border-radius: 12px; padding: 12px 18px; transition: transform var(--speed) var(--ease), box-shadow var(--speed) var(--ease), background var(--speed) var(--ease); font-weight: 600; font-size: 1rem; display: inline-flex; align-items: center; justify-content: center; gap: 8px; }
     .btn.primary { background: linear-gradient(90deg, var(--accent), var(--accent2)); color: #0a0b0f; box-shadow: 0 8px 20px rgba(110,231,255,.25); }
     .btn.primary:hover { transform: translateY(-3px); box-shadow: 0 12px 25px rgba(110,231,255,.35); }
@@ -85,12 +78,10 @@
     .section-head h2 { margin: 0 0 12px; font-size: 2rem; font-weight: 700; }
     .section-head p { color: var(--muted); margin: 0 0 20px; max-width: 600px; margin-left: auto; margin-right: auto; font-size: 1.05rem; }
     
-    /* Grid */
     .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
     @media (max-width: 900px) { .grid { grid-template-columns: repeat(2, 1fr); } }
     @media (max-width: 600px) { .grid { grid-template-columns: 1fr; } }
     
-    /* Card */
     .card { background: var(--card); border: 1px solid rgba(255,255,255,.08); border-radius: var(--radius); box-shadow: var(--shadow); overflow: hidden; transform: translate3d(0,0,0); transition: transform var(--speed) var(--ease), box-shadow var(--speed) var(--ease), border-color var(--speed) var(--ease); }
     .card:hover { transform: translateY(-6px); border-color: rgba(110,231,255,.4); box-shadow: 0 15px 35px rgba(0,0,0,.5); }
     .card .info { padding: 18px; }
@@ -100,7 +91,6 @@
     .bundles .features { padding: 0 18px 18px 18px; color: var(--muted); }
     .bundles .features li { margin: 8px 0; display: flex; align-items: center; gap: 8px; }
     
-    /* Footer */
     .footer { border-top: 1px solid rgba(255,255,255,.08); padding: 40px 0 20px; background: rgba(10,11,15,.7); backdrop-filter: blur(10px); }
     .foot-wrap { display: grid; grid-template-columns: repeat(4, 1fr); gap: 30px; }
     .footer-col h4 { margin-bottom: 16px; font-size: 1.1rem; }
@@ -113,7 +103,6 @@
     .newsletter-form button { padding: 10px 15px; }
     .made-by { text-align: center; padding-top: 30px; margin-top: 30px; border-top: 1px solid rgba(255,255,255,.08); color: var(--muted); grid-column: 1 / -1; }
     
-    /* Cart Drawer */
     .cart-drawer { position: fixed; inset: 0 0 0 auto; width: 400px; max-width: 100%; background: rgba(0,0,0,.4); backdrop-filter: blur(6px); display: none; z-index: 2000; }
     .cart-drawer.active { display: block; }
     .drawer-content { position: absolute; right: 0; top: 0; bottom: 0; width: 400px; background: var(--card); border-left: 1px solid rgba(255,255,255,.1); animation: slideIn var(--speed) var(--ease); display: flex; flex-direction: column; }
@@ -135,7 +124,6 @@
     .pay-methods { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
     .pay-methods .chip { border: 1px solid rgba(255,255,255,.2); }
     
-    /* Modal */
     .modal { position: fixed; inset: 0; background: rgba(0,0,0,.5); display: none; align-items: center; justify-content: center; z-index: 2100; padding: 20px; }
     .modal.active { display: flex; animation: fadeIn var(--speed) var(--ease); }
     @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
@@ -143,37 +131,21 @@
     .modal-head, .modal-foot { padding: 18px; border-bottom: 1px solid rgba(255,255,255,.06); }
     .modal-foot { border-top: 1px solid rgba(255,255,255,.06); border-bottom: none; display: flex; justify-content: flex-end; gap: 10px; }
     .modal-body { padding: 18px; }
-    .stars { display: flex; gap: 6px; margin-bottom: 15px; justify-content: center; }
-    .stars button { background: transparent; border: 1px solid rgba(255,255,255,.2); color: #ccc; font-size: 22px; border-radius: 8px; width: 40px; height: 40px; cursor: pointer; transition: background var(--speed) var(--ease), transform var(--speed) var(--ease), border-color var(--speed) var(--ease); }
-    .stars button.active { background: linear-gradient(90deg, var(--accent), var(--accent2)); color: #0a0b0f; transform: translateY(-2px); border-color: transparent; }
-    .emojis { display: flex; gap: 8px; margin-bottom: 15px; justify-content: center; }
-    .emojis button { background: transparent; border: 1px solid rgba(255,255,255,.2); font-size: 24px; border-radius: 8px; width: 44px; height: 44px; cursor: pointer; transition: background var(--speed) var(--ease), transform var(--speed) var(--ease), border-color var(--speed) var(--ease); display: flex; align-items: center; justify-content: center; }
-    .emojis button.active { background: rgba(255,255,255,.1); transform: translateY(-2px); border-color: var(--accent); }
-    textarea { width: 100%; background: rgba(255,255,255,.06); color: var(--text); border: 1px solid rgba(255,255,255,.12); border-radius: 12px; padding: 12px; resize: vertical; min-height: 100px; font-family: inherit; }
-    textarea:focus { outline: none; border-color: var(--accent); }
     
-    /* Toast */
     .toast { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); background: var(--card); border: 1px solid rgba(255,255,255,.2); color: var(--text); padding: 12px 20px; border-radius: 12px; display: none; z-index: 3000; box-shadow: var(--shadow); max-width: 90%; text-align: center; }
     .toast.show { display: block; animation: floatUp var(--speed) var(--ease); }
     @keyframes floatUp { from { transform: translate(-50%, 20px); opacity: 0; } to { transform: translate(-50%, 0); opacity: 1; } }
     
-    /* FAQ */
     .faq details { background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.1); padding: 15px; border-radius: 12px; margin: 12px 0; transition: background var(--speed) var(--ease); }
     .faq details:hover { background: rgba(255,255,255,.08); }
     .faq details[open] { background: rgba(255,255,255,.1); }
     .faq summary { cursor: pointer; font-weight: 600; padding: 5px 0; }
     .faq p { margin-top: 10px; color: var(--muted); }
     
-    /* Thank You Page */
     .thank-you { text-align: center; padding: 60px 20px; max-width: 600px; margin: 0 auto; }
     .thank-you h1 { font-size: 2.5rem; margin-bottom: 20px; color: var(--accent); }
     .thank-you p { margin-bottom: 30px; color: var(--muted); font-size: 1.1rem; }
     
-    /* Loading Animation */
-    .loading { display: inline-block; width: 20px; height: 20px; border: 3px solid rgba(255,255,255,.3); border-radius: 50%; border-top-color: var(--accent); animation: spin 1s ease-in-out infinite; }
-    @keyframes spin { to { transform: rotate(360deg); } }
-    
-    /* Animation for cart add */
     @keyframes addToCart { 
       0% { transform: scale(1); }
       50% { transform: scale(1.1); }
@@ -181,63 +153,8 @@
     }
     .add-to-cart-animation { animation: addToCart 0.5s var(--ease); }
     
-    /* RTL/LTR switching */
-    html[dir="ltr"] .nav-links { flex-direction: row; }
-    .muted { color: var(--muted); }
-    
-    /* Dark/Light mode toggle */
     .theme-toggle { background: transparent; border: none; color: var(--text); cursor: pointer; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: background var(--speed) var(--ease); }
     .theme-toggle:hover { background: rgba(255,255,255,.1); }
-    
-    /* Responsive improvements */
-    @media (max-width: 768px) {
-      .footer .foot-wrap { grid-template-columns: 1fr 1fr; gap: 25px; }
-      .hero h1 { font-size: 2rem; }
-      .section { padding: 50px 0; }
-      .section-head h2 { font-size: 1.7rem; }
-      .nav-links { display: none; }
-      .mobile-menu-btn { display: block; }
-      .cart-drawer .drawer-content { width: 100%; }
-    }
-    
-    @media (max-width: 480px) {
-      .footer .foot-wrap { grid-template-columns: 1fr; }
-      .hero h1 { font-size: 1.7rem; }
-      .btn { padding: 10px 14px; font-size: 0.9rem; }
-      .card .info, .card .buy { padding: 14px; }
-    }
-    
-    /* reCAPTCHA styling */
-    .g-recaptcha { margin: 15px 0; display: flex; justify-content: center; }
-    
-    /* تأثيرات خاصة */
-    .floating { animation: floating 3s ease-in-out infinite; }
-    @keyframes floating {
-      0% { transform: translate(0, 0px); }
-      50% { transform: translate(0, -10px); }
-      100% { transform: translate(0, 0px); }
-    }
-    
-    .shake { animation: shake 0.5s; }
-    @keyframes shake {
-      0% { transform: translate(1px, 1px) rotate(0deg); }
-      10% { transform: translate(-1px, -2px) rotate(-1deg); }
-      20% { transform: translate(-3px, 0px) rotate(1deg); }
-      30% { transform: translate(3px, 2px) rotate(0deg); }
-      40% { transform: translate(1px, -1px) rotate(1deg); }
-      50% { transform: translate(-1px, 2px) rotate(-1deg); }
-      60% { transform: translate(-3px, 1px) rotate(0deg); }
-      70% { transform: translate(3px, 1px) rotate(-1deg); }
-      80% { transform: translate(-1px, -1px) rotate(1deg); }
-      90% { transform: translate(1px, 2px) rotate(0deg); }
-      100% { transform: translate(1px, -2px) rotate(-1deg); }
-    }
-    
-    .zoom-in { animation: zoomIn 0.5s; }
-    @keyframes zoomIn {
-      0% { transform: scale(0.5); opacity: 0; }
-      100% { transform: scale(1); opacity: 1; }
-    }
     
     .available-product { position: relative; }
     .available-product::before {
@@ -279,72 +196,33 @@
       z-index: 1;
     }
     
-    .invoice { 
-      background: var(--card); 
-      border-radius: var(--radius); 
-      padding: 20px; 
-      margin: 20px 0; 
-      border: 1px solid rgba(255,255,255,.1);
-    }
-    .invoice-header { 
-      text-align: center; 
-      margin-bottom: 20px; 
-      border-bottom: 1px solid rgba(255,255,255,.1); 
-      padding-bottom: 15px; 
-    }
-    .invoice-details { 
-      display: grid; 
-      grid-template-columns: 1fr 1fr; 
-      gap: 15px; 
-      margin-bottom: 20px; 
-    }
-    .invoice-items { 
-      margin-bottom: 20px; 
-    }
-    .invoice-item { 
-      display: flex; 
-      justify-content: space-between; 
-      padding: 10px 0; 
-      border-bottom: 1px solid rgba(255,255,255,.05); 
-    }
-    .invoice-total { 
-      text-align: right; 
-      font-size: 1.2rem; 
-      font-weight: bold; 
-      margin-top: 15px; 
-      padding-top: 15px; 
-      border-top: 1px solid rgba(255,255,255,.1); 
+    @media (max-width: 768px) {
+      .footer .foot-wrap { grid-template-columns: 1fr 1fr; gap: 25px; }
+      .hero h1 { font-size: 2rem; }
+      .section { padding: 50px 0; }
+      .section-head h2 { font-size: 1.7rem; }
+      .nav-links { display: none; }
+      .cart-drawer .drawer-content { width: 100%; }
     }
     
-    .payment-status { 
-      text-align: center; 
-      padding: 20px; 
-      border-radius: var(--radius); 
-      margin: 20px 0; 
+    @media (max-width: 480px) {
+      .footer .foot-wrap { grid-template-columns: 1fr; }
+      .hero h1 { font-size: 1.7rem; }
+      .btn { padding: 10px 14px; font-size: 0.9rem; }
+      .card .info, .card .buy { padding: 14px; }
     }
-    .payment-success { 
-      background: rgba(111, 255, 171, 0.1); 
-      border: 1px solid var(--ok); 
-    }
-    .payment-cancelled { 
-      background: rgba(255, 110, 135, 0.1); 
-      border: 1px solid var(--danger); 
-    }
-    .contact-message {
-      background: rgba(110, 231, 255, 0.1);
-      border: 1px solid var(--accent);
-      padding: 20px;
-      border-radius: var(--radius);
-      text-align: center;
-      margin: 20px 0;
+    
+    .floating { animation: floating 3s ease-in-out infinite; }
+    @keyframes floating {
+      0% { transform: translate(0, 0px); }
+      50% { transform: translate(0, -10px); }
+      100% { transform: translate(0, 0px); }
     }
   </style>
 </head>
 <body>
-  <!-- شريط التقدم -->
   <div id="progress-bar"></div>
 
-  <!-- Topbar -->
   <div class="topbar">
     <div class="container">
       <span>أسعار رمزية تبدأ من 1$ • تحديثات مستمرة • تسليم فوري</span>
@@ -367,12 +245,9 @@
     </div>
   </div>
 
-  <!-- Navbar -->
   <header class="navbar">
     <div class="container nav-wrap">
-      <a href="#home" class="brand">
-        <span>PixelDrop</span>
-      </a>
+      <a href="#home" class="brand">PixelDrop</a>
       <nav class="nav-links">
         <a href="#home">الرئيسية</a>
         <a href="#featured">الأعمال</a>
@@ -390,7 +265,6 @@
     </div>
   </header>
 
-  <!-- Hero with space background -->
   <section id="home" class="hero">
     <canvas id="spaceCanvas"></canvas>
     <div class="container hero-content">
@@ -401,35 +275,13 @@
         <a href="#bundles" class="btn ghost">الباقات المميزة</a>
       </div>
       <div class="trust">
-        <div class="badge">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="M12 6V12L16 14" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-          تسليم فوري
-        </div>
-        <div class="badge">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M12 15C13.6569 15 15 13.6569 15 12C15 10.3431 13.6569 9 12 9C10.3431 9 9 10.3431 9 12C9 13.6569 10.3431 15 12 15Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="M19.4 15C19.2669 15.9324 18.9837 16.8364 18.5634 17.6727C18.1431 18.509 17.5925 19.2643 16.9376 19.905C16.2827 20.5457 15.5339 21.0621 14.7255 21.432C13.9172 21.8019 13.0615 22.0201 12.19 22.0775C11.3185 22.1349 10.4449 22.0306 9.60865 21.7695C8.77239 21.5084 7.98717 21.0946 7.29065 20.5477C6.59413 20.0008 5.9976 19.3294 5.52952 18.5659C5.06144 17.8024 4.7295 16.9594 4.55 16.078" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="M4.6 9C4.73314 8.06764 5.0163 7.16361 5.43662 6.3273C5.85694 5.49099 6.40748 4.73574 7.06239 4.09503C7.71729 3.45432 8.46613 2.93795 9.27446 2.56803C10.0828 2.19811 10.9385 1.9799 11.81 1.92254C12.6815 1.86518 13.5551 1.96954 14.3914 2.23062C15.2276 2.4917 16.0128 2.90555 16.7094 3.45245C17.4059 3.99935 18.0024 4.67074 18.4705 5.43422C18.9386 6.19771 19.2705 7.04073 19.45 7.922" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-          حقوق استخدام تجارية
-        </div>
-        <div class="badge">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M14 9V5C14 4.46957 14.2107 3.96086 14.5858 3.58579C14.9609 3.21071 15.4696 3 16 3H20C20.5304 3 21.0391 3.21071 21.4142 3.58579C21.7893 3.96086 22 4.46957 22 5V9C22 9.53043 21.7893 10.0391 21.4142 10.4142C21.0391 10.7893 20.5304 11 20 11H16C15.4696 11 14.9609 10.7893 14.5858 10.4142C14.2107 10.0391 14 9.53043 14 9Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="M16 21H20C20.5304 21 21.0391 20.7893 21.4142 20.4142C21.7893 20.0391 22 19.5304 22 19V15C22 14.4696 21.7893 13.9609 21.4142 13.5858C21.0391 13.2107 20.5304 13 20 13H16C15.4696 13 14.9609 13.2107 14.5858 13.5858C14.2107 13.9609 14 14.4696 14 15V19C14 19.5304 14.2107 20.0391 14.5858 20.4142C14.9609 20.7893 15.4696 21 16 21Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="M2 9V5C2 4.46957 2.21071 3.96086 2.58579 3.58579C2.96086 3.21071 3.46957 3 4 3H8C8.53043 3 9.03914 3.21071 9.41421 3.58579C9.78929 3.96086 10 4.46957 10 5V9C10 9.53043 9.78929 10.0391 9.41421 10.4142C9.03914 10.7893 8.53043 11 8 11H4C3.46957 11 2.96086 10.7893 2.58579 10.4142C2.21071 10.0391 2 9.53043 2 9Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="M2 19V15C2 14.4696 2.21071 13.9609 2.58579 13.5858C2.96086 13.2107 3.46957 13 4 13H8C8.53043 13 9.03914 13.2107 9.41421 13.5858C9.78929 13.9609 10 14.4696 10 15V19C10 19.5304 9.78929 20.0391 9.41421 20.4142C9.03914 20.7893 8.53043 21 8 21H4C3.46957 21 2.96086 20.7893 2.58579 20.4142C2.21071 20.0391 2 19.5304 2 19Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-          ضمان رضا
-        </div>
+        <div class="badge">تسليم فوري</div>
+        <div class="badge">حقوق استخدام تجارية</div>
+        <div class="badge">ضمان رضا</div>
       </div>
     </div>
   </section>
 
-  <!-- Featured products -->
   <section id="featured" class="section">
     <div class="container">
       <div class="section-head">
@@ -441,8 +293,7 @@
           data-id="p1"
           data-name-ar="أيقونة بطل 16×16"
           data-name-en="Hero Icon 16×16"
-          data-price="1"
-          data-pay-paypal="https://paypal.me/PixelArt8/1">
+          data-price="1">
           <div class="info">
             <h3 class="name">أيقونة بطل 16×16</h3>
             <p class="desc">تفاصيل دقيقة، حجم صغير، مثالي للألعاب.</p>
@@ -480,7 +331,6 @@
     </div>
   </section>
 
-  <!-- Bundles -->
   <section id="bundles" class="section alt">
     <div class="container">
       <div class="section-head">
@@ -493,24 +343,9 @@
           <div class="info">
             <h3 class="name">باقة المبتدئ</h3>
             <ul class="features">
-              <li>
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M20 6L9 17L4 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-                3 أيقونات 16×16
-              </li>
-              <li>
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M20 6L9 17L4 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-                ترخيص استخدام تجاري
-              </li>
-              <li>
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M20 6L9 17L4 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-                تسليم فوري
-              </li>
+              <li>3 أيقونات 16×16</li>
+              <li>ترخيص استخدام تجاري</li>
+              <li>تسليم فوري</li>
             </ul>
           </div>
           <div class="buy">
@@ -524,24 +359,9 @@
           <div class="info">
             <h3 class="name">باقة المطوّر</h3>
             <ul class="features">
-              <li>
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M20 6L9 17L4 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-                10 مربعات مدينة 32×32
-              </li>
-              <li>
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M20 6L9 17L4 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-                ملفات مصدرية
-              </li>
-              <li>
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M20 6L9 17L4 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-                دليل دمج سريع
-              </li>
+              <li>10 مربعات مدينة 32×32</li>
+              <li>ملفات مصدرية</li>
+              <li>دليل دمج سريع</li>
             </ul>
           </div>
           <div class="buy">
@@ -553,7 +373,6 @@
     </div>
   </section>
 
-  <!-- Reviews -->
   <section id="reviews" class="section">
     <div class="container">
       <div class="section-head">
@@ -564,7 +383,6 @@
     </div>
   </section>
 
-  <!-- FAQ -->
   <section id="faq" class="section alt">
     <div class="container">
       <div class="section-head">
@@ -587,7 +405,6 @@
     </div>
   </section>
 
-  <!-- Footer -->
   <footer class="footer">
     <div class="container foot-wrap">
       <div class="footer-col">
@@ -624,7 +441,6 @@
     </div>
   </footer>
 
-  <!-- Cart Drawer -->
   <div class="cart-drawer" id="cartDrawer" aria-hidden="true">
     <div class="drawer-content">
       <div class="drawer-head">
@@ -655,7 +471,6 @@
     </div>
   </div>
 
-  <!-- Login Modal -->
   <div class="modal" id="loginModal" aria-hidden="true">
     <div class="modal-content">
       <div class="modal-head">
@@ -669,7 +484,6 @@
         <label><span>كلمة المرور</span><br><input id="loginPassword" type="password" style="width:100%;padding:10px;border-radius:10px;border:1px solid rgba(255,255,255,.2);background:rgba(255,255,255,.06);color:var(--text);margin-top:5px;" required></label>
         <br><br>
         <label><span>تأكيد كلمة المرور</span><br><input id="loginConfirmPassword" type="password" style="width:100%;padding:10px;border-radius:10px;border:1px solid rgba(255,255,255,.2);background:rgba(255,255,255,.06);color:var(--text);margin-top:5px;" required></label>
-        <!-- reCAPTCHA -->
         <div class="g-recaptcha" data-sitekey="6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI"></div>
         <p class="muted">نستخدم الإيميل لإرسال رابط التحميل بعد التقييم.</p>
       </div>
@@ -680,76 +494,6 @@
     </div>
   </div>
 
-  <!-- Payment Status Modal -->
-  <div class="modal" id="paymentStatusModal" aria-hidden="true">
-    <div class="modal-content">
-      <div class="modal-head">
-        <h3 id="paymentStatusTitle">حالة الدفع</h3>
-      </div>
-      <div class="modal-body">
-        <div id="paymentStatusContent"></div>
-      </div>
-      <div class="modal-foot">
-        <button class="btn primary" id="closePaymentStatus" type="button">حسناً</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- Thank You Modal -->
-  <div class="modal" id="thankYouModal" aria-hidden="true">
-    <div class="modal-content">
-      <div class="modal-head">
-        <h3>شكراً لشرائك!</h3>
-      </div>
-      <div class="modal-body">
-        <div class="thank-you">
-          <h1>شكراً لك!</h1>
-          <p>تم استلام طلبك بنجاح. سنتواصل معك في أقرب وقت لتأكيد الطلب وإرسال المنتج.</p>
-          
-          <!-- الفاتورة -->
-          <div class="invoice">
-            <div class="invoice-header">
-              <h3>فاتورة الشراء</h3>
-              <p id="invoiceNumber">رقم الفاتورة: #<span id="invoiceId"></span></p>
-              <p id="invoiceDate">التاريخ: <span id="invoiceDateValue"></span></p>
-            </div>
-            
-            <div class="invoice-details">
-              <div>
-                <strong>معلومات العميل:</strong>
-                <p id="customerName"></p>
-                <p id="customerEmail"></p>
-              </div>
-              <div>
-                <strong>معلومات البائع:</strong>
-                <p>PixelDrop</p>
-                <p>alipoq1@outlook.sa</p>
-              </div>
-            </div>
-            
-            <div class="invoice-items">
-              <strong>المنتجات المشتراة:</strong>
-              <div id="invoiceItems"></div>
-            </div>
-            
-            <div class="invoice-total">
-              <p>المجموع: <span id="invoiceTotal"></span></p>
-            </div>
-          </div>
-          
-          <div class="contact-message">
-            <h3>🎉 تم استلام طلبك!</h3>
-            <p>سنقوم بالتواصل معك على بريدك الإلكتروني خلال 24 ساعة لتأكيد الطلب وإرسال المنتج.</p>
-            <p>شكراً لثقتك بنا!</p>
-          </div>
-          
-          <button class="btn primary" id="closeThankYou" type="button">متابعة التسوق</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Toast -->
   <div class="toast" id="toast"></div>
 
   <script src="https://www.google.com/recaptcha/api.js" async defer></script>
@@ -760,63 +504,12 @@
       theme: localStorage.getItem('theme') || 'dark',
       cart: JSON.parse(localStorage.getItem('cart') || '[]'),
       reviews: JSON.parse(localStorage.getItem('reviews') || '[]'),
-      pendingOrder: null,
-      selectedStars: 0,
-      selectedEmoji: null,
       user: JSON.parse(localStorage.getItem('user') || 'null'),
       payMethod: 'paypal',
       appliedCoupon: null,
       discount: 0,
-      orders: JSON.parse(localStorage.getItem('orders') || '[]'),
-      paymentInProgress: false
+      orders: JSON.parse(localStorage.getItem('orders') || '[]')
     };
-
-    // التحقق من حالة الدفع عند تحميل الصفحة
-    function checkPaymentStatus() {
-      const urlParams = new URLSearchParams(window.location.search);
-      const paymentStatus = urlParams.get('payment');
-      
-      if (paymentStatus === 'cancelled') {
-        showPaymentStatus('cancelled', 'لم يتم اكتمال عملية الدفع. إذا كنت تواجه مشكلة، يرجى المحاولة مرة أخرى أو التواصل مع الدعم.');
-      } else if (paymentStatus === 'success') {
-        // في حالة نجاح الدفع (للتطوير فقط)
-        showPaymentStatus('success', 'تم الدفع بنجاح! سنتواصل معك قريباً.');
-      }
-      
-      // إزالة معلمات URL بعد المعالجة
-      if (paymentStatus) {
-        const newUrl = window.location.pathname;
-        window.history.replaceState({}, document.title, newUrl);
-      }
-    }
-
-    // عرض حالة الدفع
-    function showPaymentStatus(status, message) {
-      const modal = document.getElementById('paymentStatusModal');
-      const title = document.getElementById('paymentStatusTitle');
-      const content = document.getElementById('paymentStatusContent');
-      
-      if (status === 'cancelled') {
-        title.textContent = 'عملية الدفع لم تكتمل';
-        content.innerHTML = `
-          <div class="payment-status payment-cancelled">
-            <h3>❌ لم يتم اكتمال الدفع</h3>
-            <p>${message}</p>
-            <p>إذا كنت بحاجة إلى مساعدة، يرجى التواصل مع الدعم.</p>
-          </div>
-        `;
-      } else if (status === 'success') {
-        title.textContent = 'تم الدفع بنجاح';
-        content.innerHTML = `
-          <div class="payment-status payment-success">
-            <h3>✅ تم الدفع بنجاح</h3>
-            <p>${message}</p>
-          </div>
-        `;
-      }
-      
-      modal.classList.add('active');
-    }
 
     // تطبيق السمة
     function applyTheme() {
@@ -839,17 +532,11 @@
     // عرض السلة
     function renderCart(){
       const cont = document.getElementById('cartItems');
-      const totalEl = document.getElementById('cartTotal');
       const countEl = document.getElementById('cartCount');
-      const finalTotalEl = document.getElementById('finalTotal');
-      const discountRow = document.getElementById('discountRow');
-      const discountAmountEl = document.getElementById('discountAmount');
       
       cont.innerHTML = '';
-      let total = 0;
       
       state.cart.forEach(item=>{
-        total += Number(item.price);
         const row = document.createElement('div');
         row.className = 'cart-item';
         row.innerHTML = `
@@ -871,10 +558,7 @@
         cont.appendChild(row);
       });
       
-      totalEl.textContent = `$${total}`;
       countEl.textContent = String(state.cart.length);
-      
-      // تحديث الخصم والمجموع النهائي
       updateCartTotal();
     }
 
@@ -961,7 +645,7 @@
       r.addEventListener('change', ()=>{ state.payMethod = r.value; });
     });
 
-    // Add to cart (update count immediately)
+    // Add to cart
     document.querySelectorAll('.add').forEach(btn=>{
       btn.addEventListener('click', e=>{
         if (!state.user) {
@@ -973,8 +657,7 @@
         const item = {
           id: card.getAttribute('data-id'),
           name: card.getAttribute('data-name-ar'),
-          price: card.getAttribute('data-price'),
-          payPayPal: card.getAttribute('data-pay-paypal')
+          price: card.getAttribute('data-price')
         };
         state.cart.push(item); 
         saveCart(); 
@@ -1009,22 +692,28 @@
         total = total - (total * state.discount);
       }
       
-      const first = state.cart[0];
-      const payUrl = first.payPayPal;
+      // تقريب الرقم إلى منزلتين عشريتين
+      total = Math.round(total * 100) / 100;
+      
+      // بناء رابط PayPal مع السعر الإجمالي
+      const basePayPalUrl = 'https://paypal.me/PixelArt8/';
+      const payUrl = basePayPalUrl + total;
       
       if(payUrl && payUrl.startsWith('https')){
-        state.paymentInProgress = true;
-        
         // الانتقال إلى صفحة الدفع في PayPal
         window.open(payUrl, '_blank');
         
         // إظهار رسالة للمستخدم
         toast('يتم الآن تحويلك إلى PayPal لإكمال عملية الدفع...');
         
-        // مراقبة حالة الدفع (محاكاة)
-        setTimeout(() => {
-          checkPaymentStatus();
-        }, 3000);
+        // إنشاء فاتورة
+        createInvoice();
+        
+        // إفراغ السلة بعد الدفع
+        state.cart = [];
+        saveCart();
+        renderCart();
+        drawer.classList.remove('active');
         
       } else {
         alert('أضف رابط الدفع الصحيح (PayPal)');
@@ -1037,7 +726,7 @@
       const invoiceDate = new Date().toLocaleDateString('ar-SA');
       
       let total = 0;
-      state.pendingOrder.forEach(item => {
+      state.cart.forEach(item => {
         total += Number(item.price);
       });
       
@@ -1052,7 +741,7 @@
           name: state.user.name,
           email: state.user.email
         },
-        items: state.pendingOrder,
+        items: [...state.cart],
         total: total,
         discount: state.appliedCoupon ? state.discount * 100 : 0,
         coupon: state.appliedCoupon || 'لا يوجد'
@@ -1078,44 +767,6 @@
       toast('تم إرسال الفاتورة إلى بريدك الإلكتروني');
     }
 
-    // عرض صفحة الشكر
-    function showThankYouPage() {
-      const modal = document.getElementById('thankYouModal');
-      const invoice = state.orders[state.orders.length - 1];
-      
-      // تعبئة بيانات الفاتورة
-      document.getElementById('invoiceId').textContent = invoice.id;
-      document.getElementById('invoiceDateValue').textContent = invoice.date;
-      document.getElementById('customerName').textContent = invoice.customer.name;
-      document.getElementById('customerEmail').textContent = invoice.customer.email;
-      document.getElementById('invoiceTotal').textContent = `$${invoice.total.toFixed(2)}`;
-      
-      // تعبئة عناصر الفاتورة
-      const invoiceItems = document.getElementById('invoiceItems');
-      invoiceItems.innerHTML = '';
-      invoice.items.forEach(item => {
-        const itemEl = document.createElement('div');
-        itemEl.className = 'invoice-item';
-        itemEl.innerHTML = `
-          <span>${item.name}</span>
-          <span>$${item.price}</span>
-        `;
-        invoiceItems.appendChild(itemEl);
-      });
-      
-      modal.classList.add('active');
-    }
-
-    // إغلاق صفحة الشكر
-    document.getElementById('closeThankYou').addEventListener('click', () => {
-      document.getElementById('thankYouModal').classList.remove('active');
-    });
-
-    // إغلاق حالة الدفع
-    document.getElementById('closePaymentStatus').addEventListener('click', () => {
-      document.getElementById('paymentStatusModal').classList.remove('active');
-    });
-
     // Reviews render
     function renderReviews(){
       const wrap = document.getElementById('reviewsList');
@@ -1134,16 +785,11 @@
         const card = document.createElement('div');
         card.className = 'card review';
         const stars = '★'.repeat(r.stars) + '☆'.repeat(5-r.stars);
-        const emojis = ['😞', '😐', '🙂', '😊', '😍'];
-        const emoji = r.emoji !== null ? emojis[r.emoji] : '';
         
         card.innerHTML = `
           <div class="info">
             <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
-              <div>
-                <strong>${stars}</strong>
-                ${emoji ? `<span style="margin-right:8px;font-size:1.2em;">${emoji}</span>` : ''}
-              </div>
+              <div><strong>${stars}</strong></div>
               <span class="muted">${new Date(r.id).toLocaleDateString()}</span>
             </div>
             <p style="margin:8px 0">${r.text}</p>
@@ -1252,7 +898,7 @@
       toast('شكراً للاشتراك في النشرة البريدية!');
     });
 
-    // Space background: stars + twinkles + occasional meteors
+    // Space background
     (function spaceBG(){
       const c = document.getElementById('spaceCanvas'); 
       const ctx = c.getContext('2d');
@@ -1335,18 +981,9 @@
     applyTheme();
     renderCart();
     renderReviews();
-    checkPaymentStatus();
     
     // إضافة مستمع لشريط التقدم
     window.onscroll = function() { updateProgressBar() };
-    
-    // إضافة تحميل كسول للصور
-    if ('loading' in HTMLImageElement.prototype) {
-      const images = document.querySelectorAll('img[loading="lazy"]');
-      images.forEach(img => {
-        img.src = img.dataset.src;
-      });
-    }
   </script>
 </body>
 </html>
